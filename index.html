@@ -100,9 +100,8 @@
     .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(52,45,30,.4); }
 
     /* ---------- selected work — colored cards → photo on scroll ---------- */
-    #work { padding: 80px 0 12px; }
-    /* desktop: tighten the gap between the project cards and the Experience heading */
-    @media (min-width: 701px){ #experience { padding-top: 44px; } }
+    #work { padding: 150px 0 130px; }   /* generous white above & below so the project cards sit alone */
+    @media (min-width: 701px){ #experience { padding-top: 40px; } }
     .morph { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
     /* every card is the same height; its width follows the aspect ratio of the project's first photo (set from the image's natural size in JS) */
     .mcard { --cardH: clamp(200px, 27vw, 300px); flex: 0 0 calc(var(--cardH) * var(--aspect, 0.78)); cursor: pointer; transition: transform 1s var(--ease); transition-delay: calc(var(--i) * .08s); }
@@ -113,9 +112,9 @@
     .mcard:hover .face { transform: translateY(-6px); box-shadow: 0 22px 44px -16px rgba(52,45,30,.32); }
     .mcard:hover .mc-photo { transform: scale(1.05); }
     .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i) * .09s + .5s); }
-    .mcard .cap .h { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 15.5px; color: var(--ink); line-height: 1.32; letter-spacing: -0.01em; }
-    .mcard .cap .c { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
-    .mcard .cap .tag { font-size: 13px; color: var(--faint); margin-top: 2px; }
+    .mcard .cap .h { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: 24px; color: var(--ink); line-height: 1.18; letter-spacing: -0.005em; }
+    .mcard .cap .c { font-size: 15px; color: var(--muted); margin-top: 5px; }
+    .mcard .cap .tag { font-size: 14px; color: var(--faint); margin-top: 2px; }
     /* disordered "deck" — cards poke out at the bottom of the hero with their colours.
        The pile / fan / lift values are computed in JS from the number of projects
        (via the --deck* custom properties), so ANY number of cards fans out correctly. */
@@ -241,8 +240,8 @@
       .mcard .face { aspect-ratio: var(--aspect, 0.78); }
       .mc-photo { opacity: 1 !important; transition: none; }
       .mcard .cap { opacity: 1 !important; transform: none !important; }
-      .mcard .cap .h { font-size: 15px; }
-      .mcard .cap .c, .mcard .cap .tag { font-size: 12.5px; }
+      .mcard .cap .h { font-size: 21px; }
+      .mcard .cap .c, .mcard .cap .tag { font-size: 13.5px; }
       .item > summary { gap: 3px 12px; }
       .pub .pt { font-size: 18px; }
       .outro { padding: 90px 22px 150px; }
@@ -592,7 +591,7 @@
         el.style.setProperty('--deckY', (8+Math.abs(off)*12).toFixed(1)+'px');
         el.style.setProperty('--deckR', (off*8).toFixed(2)+'deg');
         el.style.setProperty('--liftY', (-(mid-Math.abs(off))*38).toFixed(1)+'px');
-        el.style.zIndex=String(Math.round(100-Math.abs(off)*10));  /* centre card on top */
+        el.style.zIndex=String(Math.round(20-Math.abs(off)*3));  /* centre card on top (kept well below the modal, z-90) */
       });
       cards.forEach(function(el){ el.style.transform=''; });    /* back to the CSS deck/settle transform */
       requestAnimationFrame(function(){ cards.forEach(function(el){ el.style.transition=''; }); });
