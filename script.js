@@ -278,11 +278,18 @@
       var off=i-mid, r=rects[i], ccx=r.left+r.width/2, ccy=r.top+r.height/2;
       var out=off===0?0:(off>0?1:-1)*30;                     /* outer cards drift outward so none stays hidden */
       var pileX=(cx-ccx)*0.6 + out;                          /* gather toward centre, keep some overlap */
-      var pileY=(topY-ccy)*0.92 + 10 + Math.abs(off)*9;      /* lift lower rows up into the top pile */
+      var pileY=(topY-ccy)*0.92 + 34 + Math.abs(off)*9;      /* pile a little lower + lift lower rows into it */
       el.style.setProperty('--deckX', pileX.toFixed(1)+'px');
       el.style.setProperty('--deckY', pileY.toFixed(1)+'px');
       el.style.setProperty('--deckR', (off*10 + (i%2?3:-3)).toFixed(2)+'deg');
       el.style.zIndex=String(Math.round(20-Math.abs(off)*2));  /* centre card on top (kept well below the modal, z-90) */
+    });
+    /* settled lift: raise the middle card(s) of EACH row (a hand-of-cards look, per row) */
+    var byRow={};
+    cards.forEach(function(el,i){ var key=Math.round(rects[i].top/24); (byRow[key]=byRow[key]||[]).push(i); });
+    Object.keys(byRow).forEach(function(k){
+      var idxs=byRow[k], m=(idxs.length-1)/2;
+      idxs.forEach(function(idx,j){ cards[idx].style.setProperty('--liftY', (-(m-Math.abs(j-m))*40).toFixed(1)+'px'); });
     });
     cards.forEach(function(el){ el.style.transform=''; });    /* back to the CSS deck/settle transform */
     requestAnimationFrame(function(){ cards.forEach(function(el){ el.style.transition=''; }); });
