@@ -121,7 +121,7 @@
       color:'#12a150',
       summary:[
         "Born from algae, shaped by the ocean. Fibra builds biodegradable fibers that bring technology and sustainability into balance.",
-        "I work in an interdisciplinary team on the R&D of a <b>patent-pending</b> biodegradable fiber for the textile industry.",
+        "I work in an interdisciplinary team on the R&D of a patent-pending biodegradable fiber for the textile industry.",
         "Funded by Aalto Design Factory and the School of Chemical Engineering, Aalto University."
       ],
       location:'Italy · Finland · Switzerland', team:['Giulia Rinaldo','Oliwia Kaczmarek'],
