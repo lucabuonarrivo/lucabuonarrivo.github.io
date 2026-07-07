@@ -100,7 +100,7 @@
     .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(52,45,30,.4); }
 
     /* ---------- selected work — colored cards → photo on scroll ---------- */
-    #work { padding: 24px 0 12px; }
+    #work { padding: 80px 0 12px; }
     /* desktop: tighten the gap between the project cards and the Experience heading */
     @media (min-width: 701px){ #experience { padding-top: 44px; } }
     .morph { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
@@ -485,9 +485,17 @@
     ];
 
     /* ----- EXPERIENCE (CV) -----
-       r = role/title · o = employer · y = years · loc = location line
-       s = Context · t = Objective · a = Approach · rr = Outcome (the STAR fields
-       shown when the entry is expanded).                                        */
+       Each { ... } block below is ONE experience. The list rebuilds itself
+       automatically, so you can have any number of them.
+         • TO ADD one:    copy a whole { ... } block, paste it where you want it
+                          in the list, and edit the text. Keep the comma after } .
+         • TO REMOVE one: delete its whole { ... } block (and its trailing comma).
+         • TO REORDER:    move a { ... } block up or down — top of the list shows first.
+       Fields in each block:
+         r = role/title · o = employer · y = years · loc = location line
+         s = Context · t = Objective · a = Approach · rr = Outcome
+             (the four STAR fields shown when the entry is expanded)
+       Keep every piece of text inside its "quotes".                             */
     var EXP = [
       { r:'Research Assistant', o:'AO Research Institute, Davos', y:'2025 - Present', loc:'Davos, Graubünden, Switzerland · On-site',
         s:"Translational research in biofabrication and tissue engineering, associating fundamental biological investigation with clinically oriented product development.",
@@ -522,8 +530,11 @@
     ];
 
     /* ----- EDUCATION (CV) -----
-       r = degree · o = institution · y = years · loc = city
-       d = list of sentences; each one is shown on its own line when expanded.
+       Works exactly like EXPERIENCE above: each { ... } block is ONE entry.
+       Copy a block to add, delete a block to remove, move blocks to reorder.
+       Fields:
+         r = degree · o = institution · y = years · loc = city
+         d = a list of sentences; each is shown on its own line when expanded.
        Inside a sentence you can use:
          <span class='grade'>110/110</span>  for the grade
          <em>...</em>                          for the thesis title (Instrument serif) */
