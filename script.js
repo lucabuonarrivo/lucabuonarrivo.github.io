@@ -134,7 +134,7 @@
       images:[{src:'images/fibra-01.jpg',cap:'Algae fibers'},{src:'images/fibra-02.jpg',cap:'Fiber samples'}] },
 
     { id:'sound', title:'Sound-Guided Regeneration', meta:'Sound-Guided Regeneration · Research · 2025',
-      headline:'Guiding tissue regeneration with sound', client:'AO Research Institute, Davos', tag:'Research · 2025',
+      headline:'Guiding tissue regeneration with sound', client:'AO Research Institute', tag:'Research · 2025',
       ar:1.6,
       color:'#2f5fe6',
       summary:[
@@ -182,7 +182,7 @@
            (the four STAR fields shown when the entry is expanded)
      Keep every piece of text inside its "quotes".                             */
   var EXP = [
-    { r:'Research Assistant', o:'AO Research Institute, Davos', y:'2025 - Present', loc:'Davos, Graubünden, Switzerland · On-site',
+    { r:'Research Assistant', o:'AO Research Institute', y:'2025 - Present', loc:'Davos, Graubünden, Switzerland · On-site',
       s:"Translational research in biofabrication and tissue engineering, associating fundamental biological investigation with clinically oriented product development.",
       t:"Ensure data integrity for future Clinical Trial Applications (CTA) within a quality-controlled (ISO and GLP) environment.",
       a:"Conducting studies in biofabrication and tissue engineering, in close collaboration with surgeons and clinical experts, to develop strategies aimed at future therapeutic applications.",
@@ -202,7 +202,7 @@
       t:"Bring academic research toward real-world clinical settings, in collaboration with the National University Hospital of Iceland (Landspítali).",
       a:"Developed 3D-bioprinted solutions and led the mechanical and biological characterization of ionic and photo-crosslinking effects on gelatin-based hydrogels.",
       rr:"A reproducible study, later published in Polymers (MDPI, 2024)." },
-    { r:'MSc Research Internship', o:'Univ. of Eastern Piedmont - TheInnovationLab', y:'2023 - 24', loc:'Novara, Piedmont, Italy · On-site',
+    { r:'MSc Research Internship', o:'Univ. of Eastern Piedmont · TheInnovationLab', y:'2023 - 24', loc:'Novara, Piedmont, Italy · On-site',
       s:"Novel biomaterials need to be characterized in vitro before translational use.",
       t:"Test the biocompatibility and antimicrobial properties of novel biomaterials.",
       a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab</a>.",
@@ -236,7 +236,7 @@
         "Graduated <span class='grade'>108/110</span>.",
         "Thesis: <em>&ldquo;Enhancing skin regeneration with a cell-free human dental pulp stem cell-derived solution combined with a nanostructured scaffold in vivo.&rdquo;</em>"
       ] },
-    { r:'Technical Diploma', o:'ITE E. Tosi - International marketing relations', y:'2013 - 18', loc:'Busto Arsizio, Italy',
+    { r:'Technical Diploma', o:'ITE E. Tosi · International marketing relations', y:'2013 - 18', loc:'Busto Arsizio, Italy',
       d:[
         "Diploma in administration, finance and marketing with a focus on international relations (<span class='grade'>92/100</span>).",
         "Included an Erasmus+ experience in Berlin and a school exchange in Tel Aviv."
