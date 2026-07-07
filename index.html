@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luca Buonarrivo</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
+  <link rel="mask-icon" href="favicon.svg?v=3" color="#17150f" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Luca Buonarrivo — Medical biotechnologist working in cell therapy, tissue engineering and regulatory science across GMP manufacturing, ISO/GLP R&D and translational research." />
+  <meta name="author" content="Luca Buonarrivo" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Luca Buonarrivo" />
+  <meta property="og:description" content="Medical biotechnologist — cell therapy, tissue engineering & regulatory science." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #faf9f5;   /* soft warm off-white background */
+      --ink: #17150f;
+      --body: #45433c;
+      --muted: #a5a29b;   /* soft light-grey — secondary text (labels, tags, signature) */
+      --faint: #a5a29b;
+      --line: #e7e5e0;    /* very light grey — borders & thin lines */
+      --beige: #b0ada5;   /* soft greyish tone (used for the Outcome line) */
+      --max: 720px;
+      --ease: cubic-bezier(.4,0,.15,1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--body);
+      font-family: 'Archivo', system-ui, sans-serif;
+      font-size: 16px; line-height: 1.6; letter-spacing: -0.006em;
+      font-kerning: auto; text-rendering: optimizeLegibility; /* automatic kerning site-wide */
+    }
+    ::selection { background: var(--ink); color: #fff; }
+    a { color: inherit; text-decoration: none; }
+    .serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
+
+    /* ---------- top bar ---------- */
+    .bar { position: fixed; top: 0; left: 0; right: 0; z-index: 40; }
+    .bar-in { display: flex; justify-content: space-between; align-items: center; padding: 24px 34px; }
+    .bar .mono { font-size: 13px; letter-spacing: .01em; color: var(--muted); transition: color .2s; }
+    .bar .mono:hover { color: var(--ink); }
+    .bar .brand { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 23px; color: var(--muted); letter-spacing: .01em; line-height: 1; transition: color .2s; }
+    .bar .brand:hover { color: var(--ink); }
+
+    /* ---------- hero ---------- */
+    .hero { min-height: 86vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 26px 40px; }
+    .hero-line { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.8rem, 4.85vw, 3.05rem); line-height: 1.2; color: var(--ink); max-width: 900px; letter-spacing: -0.012em; }
+    .hero-line .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
+    .hero-line .amp { font-family: 'Instrument Serif', serif; font-style: italic; }
+    .ilink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .ilink:hover { text-decoration-color: transparent; }
+
+    .greet { position: relative; display: inline-block; cursor: default; transition: opacity .3s; }
+    .name { position: relative; cursor: default; white-space: nowrap; }
+
+    .skills { display: flex; flex-direction: column; align-items: center; margin-top: 40px; }
+    .skills-lab { font-size: 12.5px; letter-spacing: .01em; color: var(--ink); font-weight: 400; margin-bottom: 15px; }
+    .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; max-width: 560px; }
+    .chip { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
+    .chip:hover { background: #fff; border-color: transparent; box-shadow: 0 9px 22px -12px rgba(0,0,0,.26); transform: translateY(-2px); }
+    .chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .skillpop { position: fixed; z-index: 60; width: 300px; max-width: calc(100vw - 32px); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 22px 55px -22px rgba(0,0,0,.32); padding: 16px 18px; text-align: left; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity .2s var(--ease), transform .2s var(--ease); }
+    .skillpop.on { opacity: 1; transform: none; pointer-events: auto; }
+    .skillpop h4 { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13.5px; color: var(--ink); margin-bottom: 7px; letter-spacing: -0.005em; }
+    .skillpop p { font-family: 'Archivo',sans-serif; font-size: 13px; line-height: 1.58; color: var(--body); }
+
+    /* floating translation tip */
+    .gtip { position: fixed; z-index: 9; pointer-events: none; font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--ink);
+      background: var(--bg); border: 1px solid var(--line); box-shadow: 0 10px 28px -12px rgba(0,0,0,.3);
+      padding: 6px 13px; border-radius: 999px; white-space: nowrap; opacity: 0; transform: translate(0, 4px); transition: opacity .22s; }
+    .gtip.on { opacity: 1; }
+
+    /* trail tiles on the name */
+    .trail { position: fixed; width: 138px; height: 172px; border-radius: 11px; overflow: hidden; pointer-events: none; z-index: 20;
+      box-shadow: 0 22px 55px -18px rgba(0,0,0,.42); transform: translate(-50%,10%) scale(.7) rotate(var(--r,0deg)); opacity: 0; }
+    .trail.show { animation: pop .95s var(--ease) forwards; }
+    /* tiles appear just BELOW the cursor — fade/scale in place, no downward drift */
+    @keyframes pop {
+      0%{opacity:0; transform:translate(-50%,10%) scale(.72) rotate(var(--r));}
+      18%{opacity:1; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
+      70%{opacity:1; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
+      100%{opacity:0; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
+    }
+    .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(0,0,0,.4); }
+
+    /* ---------- selected work — colored cards → photo on scroll ---------- */
+    #work { padding: 24px 0 96px; }
+    .morph { display: flex; justify-content: center; align-items: flex-end; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
+    .mcard { flex: 0 0 var(--w, clamp(150px, 24vw, 236px)); cursor: pointer; transition: transform 1s var(--ease); transition-delay: calc(var(--i) * .08s); }
+    .mcard .face { position: relative; aspect-ratio: var(--ar, 3/4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(0,0,0,.34); }
+    .mc-color { position: absolute; inset: 0; }
+    .mc-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i) * .09s + .35s); }
+    .mcard:hover .mc-photo { transform: scale(1.045); }
+    .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i) * .09s + .5s); }
+    .mcard .cap .h { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 15.5px; color: var(--ink); line-height: 1.32; letter-spacing: -0.01em; }
+    .mcard .cap .c { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
+    .mcard .cap .tag { font-size: 13px; color: var(--faint); margin-top: 2px; }
+    .mcard:nth-child(1){ transform: translate(46%, 42px) rotate(-13deg); transform-origin: bottom center; z-index: 1; }
+    .mcard:nth-child(2){ transform: translateY(54px) rotate(-1deg); transform-origin: bottom center; z-index: 3; }
+    .mcard:nth-child(3){ transform: translate(-46%, 42px) rotate(13deg); transform-origin: bottom center; z-index: 2; }
+    .morph.in .mcard { transform: none; }
+    .morph.in .mcard:nth-child(2) { transform: translateY(-46px); }
+    .morph.in .mc-photo { opacity: 1; }
+    .morph.in .cap { opacity: 1; transform: none; }
+
+    /* ---------- section frame ---------- */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 82px 26px 34px; }
+    section { padding: 82px 0 34px; }
+    .sec-title { font-family: 'Instrument Serif',serif; text-align: center; font-size: clamp(2.2rem, 5.6vw, 3.1rem); font-weight: 400; font-style: italic; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.005em; }
+    .sec-sub { text-align: center; font-size: 13px; letter-spacing: .01em; color: var(--faint); margin-bottom: 44px; font-weight: 400; }
+
+    /* ---------- CV entries — cards ---------- */
+    .item { border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; padding: 0 22px; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
+    .item:hover { box-shadow: 0 9px 22px -12px rgba(0,0,0,.26); border-color: transparent; transform: translateY(-2px); }
+    .item[open] { box-shadow: 0 10px 28px -18px rgba(0,0,0,.18); }
+    .item > summary { list-style: none; cursor: pointer; padding: 20px 0; display: grid; grid-template-columns: 1fr auto; gap: 3px 20px; }
+    .item > summary::-webkit-details-marker { display: none; }
+    .item .r { font-family: 'Archivo',sans-serif; font-weight: 400; color: var(--ink); font-size: 17px; letter-spacing: -0.01em; line-height: 1.28; }
+    .item .o { color: var(--ink); font-size: 13px; margin-top: 4px; }
+    .item .y { color: var(--ink); font-size: 12.5px; letter-spacing: .02em; white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; display: flex; gap: 15px; align-items: center; }
+    /* toggle button: black "+" by default; the coloured circle appears only on hover.
+       On open the button spins 180° and the "+" morphs into an up-arrow. */
+    .plus { position: relative; width: 27px; height: 27px; flex: 0 0 auto; border-radius: 50%; background: transparent; transition: background .25s var(--ease), transform .4s var(--ease); }
+    .item:hover .plus { background: var(--line); }
+    .plus::before,.plus::after { content:""; position:absolute; inset:0; background-repeat:no-repeat; background-position:center; transition: opacity .3s var(--ease); }
+    /* "+" (closed) — black lines */
+    .plus::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27 27'%3E%3Cpath d='M13.5 8V19M8 13.5H19' stroke='%2317150f' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E"); opacity:1; }
+    /* arrow drawn pointing DOWN so the 180° spin lands it pointing UP — black lines */
+    .plus::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27 27'%3E%3Cpath d='M13.5 8V19M9 14l4.5 4.5L18 14' fill='none' stroke='%2317150f' stroke-width='1.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); opacity:0; }
+    .item[open] .plus { transform: rotate(180deg); }
+    .item[open] .plus::before { opacity:0; }
+    .item[open] .plus::after { opacity:1; }
+    .body { grid-column: 1 / -1; padding: 4px 0 26px; }
+    .item[open] .body { animation: rev .55s var(--ease); }
+    @keyframes rev { from{opacity:0; transform:translateY(-6px);} to{opacity:1;transform:none;} }
+    .star { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; max-width: 640px; }
+    .star .cell .k { font-size: 12px; letter-spacing: .01em; color: var(--muted); display:block; margin-bottom: 5px; font-weight: 400; }
+    .star .cell p { font-size: 15px; line-height: 1.58; color: var(--body); }
+    .loc { grid-column: 1 / -1; font-size: 12px; color: var(--ink); margin-top: 20px; }
+    .body a { color: var(--ink); border-bottom: 1px solid var(--ink); transition: border-color .25s; }
+    .body a:hover { border-color: transparent; }
+    @media (max-width: 560px){ .star { grid-template-columns: 1fr; } }
+
+    .edu .body p { font-size: 15.5px; color: var(--ink); max-width: 60ch; margin-bottom: 8px; }
+    .edu .body p:last-of-type { margin-bottom: 0; }
+    .edu .body em { font-family: 'Instrument Serif',serif; font-style: normal; font-size: 18px; color: var(--ink); }
+    .grade { color: var(--ink); font-weight: 400; font-style: normal; }
+
+    /* ---------- publications — cards ---------- */
+    .pub { display: block; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; cursor: pointer; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
+    .pub:hover { box-shadow: 0 9px 22px -12px rgba(0,0,0,.26); border-color: transparent; transform: translateY(-2px); }
+    .pub .pt { font-family: 'Instrument Serif',serif; font-style: normal; font-weight: 400; color: var(--ink); font-size: 20px; line-height: 1.28; letter-spacing: 0; }
+    .pub .pm { margin-top: 9px; font-size: 12.5px; color: var(--ink); display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .pub .pm span { color: var(--ink); }
+    .pub .pm .v { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13px; color: var(--ink); }
+
+    /* ---------- outro ---------- */
+    .outro { text-align: center; padding: 76px 26px 48px; }
+    .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.55rem, 3.7vw, 2rem); line-height: 1.24; color: var(--ink); max-width: 720px; margin: 0 auto 14px; letter-spacing: -0.012em; }
+    .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
+    .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .outro a:hover { text-decoration-color: transparent; }
+    .made { font-family: 'Archivo',sans-serif !important; font-weight: 400; font-size: 13px !important; line-height: 1.6; letter-spacing: .01em; color: var(--muted); max-width: 500px; margin: 72px auto 0 !important; }
+    .cph { font-size: 12px; letter-spacing: .01em; color: var(--faint); margin-top: 42px; }
+
+    /* ---------- project detail ---------- */
+    .pd { position: fixed; inset: 0; z-index: 90; background: rgba(28,26,20,.34); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 22px; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease); }
+    .pd.on { opacity: 1; pointer-events: auto; }
+    .pd-card { width: min(1080px, 96vw); height: min(90vh, 760px); background: var(--bg); border-radius: 22px; box-shadow: 0 40px 100px -34px rgba(0,0,0,.55); transform: translateY(18px) scale(.96); transition: transform .38s var(--ease); display: flex; flex-direction: column; overflow: hidden; }
+    .pd.on .pd-card { transform: none; }
+    .pd-bar { position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; z-index: 2; border-bottom: 1px solid var(--line); }
+    .pd-bar .l { display: flex; gap: 28px; align-items: center; }
+    .pd-bar button { background: none; border: none; font-family: 'Archivo',sans-serif; font-size: 13px; color: var(--muted); cursor: pointer; padding: 0; transition: color .2s; }
+    .pd-bar button:hover { color: var(--ink); }
+    .pd-bar .meta { font-size: 13px; color: var(--ink); }
+    .pd-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 0.82fr 1.18fr; }
+    .pd-left { color: var(--ink); font-size: 15.5px; line-height: 1.6; padding: 42px 30px 44px 40px; overflow: hidden; }
+    .pd-right { overflow-y: auto; padding: 42px 40px 60px 30px; }
+    .pd-left .sum { font-family: 'Archivo',sans-serif; font-size: 16px; line-height: 1.58; }
+    .pd-left .sum p { margin-bottom: 16px; }
+    .pd-left .blk { margin-top: 22px; font-size: 14px; line-height: 1.7; }
+    .pd-left .k { color: var(--muted); }
+    .pd-left .roles { margin-top: 22px; font-size: 14px; color: var(--ink); }
+    .pd-right .sec2 { margin-bottom: 40px; }
+    .pd-right .sl { color: var(--muted); font-size: 13px; letter-spacing: .04em; margin-bottom: 12px; }
+    .pd-right .st { font-family: 'Archivo',sans-serif; color: var(--ink); font-size: 16px; line-height: 1.58; max-width: 48ch; }
+    .pd-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 6px 0 40px; }
+    .ph { aspect-ratio: 4/5; border-radius: 4px; display: grid; place-items: end start; padding: 12px; }
+    .ph span { font-family: 'Archivo',sans-serif; font-size: 11px; color: rgba(255,255,255,.9); text-shadow: 0 1px 4px rgba(0,0,0,.35); }
+    .pd-link { display: inline-block; margin-top: 22px; color: var(--ink); font-family: 'Archivo',sans-serif; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .pd-link:hover { text-decoration-color: transparent; }
+    @media (max-width: 720px){
+      .pd-card { height: auto; max-height: 92vh; overflow-y: auto; }
+      .pd-bar{ padding: 16px 22px;} .pd-bar .l{ gap: 18px;}
+      .pd-body{ display: block; }
+      .pd-left { padding: 28px 22px 6px; overflow: visible; }
+      .pd-right { overflow: visible; padding: 10px 22px 90px; }
+    }
+
+    .rv { opacity: 0; transform: translateY(12px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .rv.in { opacity: 1; transform: none; }
+
+    /* ---------- responsive / mobile ---------- */
+    @media (max-width: 700px){
+      .bar-in { padding: 18px 20px; }
+      section { padding: 60px 0 28px; }
+      .wrap { padding: 60px 20px 28px; }
+      .hero { min-height: 78vh; padding: 100px 20px 30px; }
+      /* shrink the three work cards so they fit side-by-side without horizontal overflow */
+      .morph { gap: 8px; min-height: 280px; padding: 0 14px; }
+      .mcard { flex: 0 0 auto !important; flex-basis: clamp(72px, 25vw, 132px) !important; }
+      .morph.in .mcard:nth-child(2){ transform: translateY(-24px); }
+      .mcard .cap .h { font-size: 13px; }
+      .mcard .cap .c, .mcard .cap .tag { font-size: 11.5px; }
+      .item > summary { gap: 3px 12px; }
+      .pub .pt { font-size: 18px; }
+      .outro p { font-size: clamp(1.3rem, 5.4vw, 1.62rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;} html{scroll-behavior:auto;} .item[open] .body{animation:none;} .trail{display:none;} .morph .mcard{transform:none;} .mc-photo{opacity:1;} .cap{opacity:1;transform:none;} }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="bar-in">
+      <a class="brand" href="#top">LB</a>
+      <a class="mono" href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <!-- CONTENT: Hero intro sentence — edit the text freely. Keep the <span> tags:
+           .greet = rotating greeting · .name = your name · .ilink = the link -->
+      <p class="hero-line">
+        <span class="greet serif" id="greet">Ciao!</span>
+        I'm <span class="name serif" id="name">Luca Buonarrivo</span>, a medical biotechnologist with an international background in cell therapy, tissue engineering &amp; regulatory science, currently at the <a class="ilink serif" href="https://www.aofoundation.org/ari" target="_blank" rel="noopener">AO Research Institute</a> in Davos.
+      </p>
+      <div class="skills">
+        <div class="skills-lab">Top skills</div>
+        <div class="chips">
+          <button class="chip" data-k="gmp">GMP</button><button class="chip" data-k="glp">GLP</button><button class="chip" data-k="iso10993">ISO 10993</button><button class="chip" data-k="iso13485">ISO 13485</button><button class="chip" data-k="atmp">ATMPs</button><button class="chip" data-k="reg">Regulatory affairs</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="morph" id="morph"></div>
+    </section>
+
+    <section id="experience" class="wrap rv">
+      <h2 class="sec-title">Experience</h2>
+      <div id="exp-list"></div>
+    </section>
+
+    <section id="education" class="wrap rv edu">
+      <h2 class="sec-title">Education</h2>
+      <div id="edu-list"></div>
+    </section>
+
+    <!-- CONTENT: Publications — copy a whole <a class="pub"> block to add another paper.
+         The whole card is a link: put the paper URL in href="".
+         .pt = title · .v = journal · last span = year -->
+    <section id="publications" class="wrap rv">
+      <h2 class="sec-title">Publications</h2>
+      <a class="pub" href="https://www.mdpi.com/2073-4360/16/19/2741" target="_blank" rel="noopener">
+        <div class="pt">Mechanical and Biological Characterization of Ionic and Photo-Crosslinking Effects on Gelatin-Based Hydrogel for Cartilage Tissue Engineering Applications</div>
+        <div class="pm"><span class="v">Polymers (MDPI)</span><span>2024</span></div>
+      </a>
+      <a class="pub" href="https://www.mdpi.com/2079-4991/13/17/2479" target="_blank" rel="noopener">
+        <div class="pt">Human Dental Pulp Mesenchymal Stem Cell-Derived Soluble Factors Combined with a Nanostructured Scaffold Support the Generation of a Vascular Network In Vivo</div>
+        <div class="pm"><span class="v">Nanomaterials (MDPI)</span><span>2023</span></div>
+      </a>
+    </section>
+
+    <!-- CONTENT: Contact / closing text — edit these lines freely.
+         The last <p class="made"> is the small grey site signature. -->
+    <section id="contact" class="outro rv">
+      <p>I build my work around applying biotechnology in highly regulated environments.</p>
+      <p>When I'm not in the lab, I'm usually out kayaking, trekking or snowboarding :)</p>
+      <p>Say hi on <a href="https://www.linkedin.com/in/luca-buonarrivo-4248b022a/" target="_blank" rel="noopener">LinkedIn</a> or by <a href="mailto:luca.buonarrivo@gmail.com">email</a>.</p>
+      <p class="made">Lately, I've also been getting into AI &amp; product design. I built this site with a little help from AI.</p>
+    </section>
+  </main>
+
+  <div class="gtip" id="gtip"></div>
+  <div class="skillpop" id="skillpop"></div>
+
+  <div class="pd" id="pd">
+    <div class="pd-card">
+      <div class="pd-bar">
+        <div class="l"><button id="pdClose">Close</button><span class="meta" id="pdMeta"></span></div>
+        <button id="pdNext">Next →</button>
+      </div>
+      <div class="pd-body" id="pdBody"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    /* ===== greeting rotation (his languages) ===== */
+    var GREETS = [
+      {w:'Ciao!',  tip:'that’s “Hi!” in Italian'},
+      {w:'Hallo!', tip:'that’s “Hi!” in German'},
+      {w:'¡Hola!', tip:'that’s “Hi!” in Spanish'}
+    ];
+    var greet=document.getElementById('greet'), gtip=document.getElementById('gtip'), gi=0, tipShown=false;
+    setInterval(function(){
+      gi=(gi+1)%GREETS.length;
+      greet.style.opacity=0;
+      setTimeout(function(){ greet.textContent=GREETS[gi].w; greet.style.opacity=1; if(tipShown) gtip.textContent=GREETS[gi].tip; },300);
+    },2600);
+
+    /* greeting tip follows the cursor and keeps updating with the language */
+    function posTip(e){ gtip.style.left=(e.clientX+14)+'px'; gtip.style.top=(e.clientY+16)+'px'; }
+    greet.addEventListener('mouseenter',function(e){ tipShown=true; gtip.textContent=GREETS[gi].tip; gtip.classList.add('on'); posTip(e); });
+    greet.addEventListener('mousemove',posTip);
+    greet.addEventListener('mouseleave',function(){ tipShown=false; gtip.classList.remove('on'); });
+
+    /* ----- TOP SKILLS -----
+       One entry per chip (key matches data-k in the HTML chips).
+       t = title shown in the pop-up · d = explanation text.                     */
+    var SKILLS = {
+      gmp:{t:'GMP · Good Manufacturing Practice', d:'The quality backbone of medicine manufacturing. At AGC Biologics, Luca produced ATMPs (cell & gene therapies) in a Class B/C cleanroom, executing Batch Production Records in strict accordance with EU GMP Annex 1.'},
+      glp:{t:'GLP · Good Laboratory Practice', d:'The standard that makes lab data trustworthy for regulators. Luca ran ISO/GLP-compliant assays at Abich and works within a quality-controlled (GLP) environment at the AO Research Institute.'},
+      iso10993:{t:'ISO 10993 · Biological evaluation of medical devices', d:'The standard for proving a device is safe in contact with the body. Luca designed and ran cytotoxicity and related assays — including OECD-compliant 3D human tissue models — to characterise how devices behave with living tissue.'},
+      iso13485:{t:'ISO 13485 · Medical-device quality management', d:'The quality-management framework behind medical-device makers. It shapes how Luca’s R&D data and SOPs feed into regulatory and technical documentation with full traceability.'},
+      atmp:{t:'ATMPs · Advanced Therapy Medicinal Products', d:'Cell and gene therapies — among the most complex medicines to make. Luca manufactured them aseptically in a cleanroom, mastering Contamination Control Strategies (CCS) in an international pharmaceutical setting.'},
+      reg:{t:'Regulatory affairs', d:'Turning science into something regulators can approve. Luca builds evidence with future Clinical Trial Applications (CTA) in mind, keeping data integrity and traceability across the pharmaceutical and biologics sectors.'}
+    };
+    var skillpop=document.getElementById('skillpop'), activeChip=null;
+    function closeSkill(){ skillpop.classList.remove('on'); if(activeChip){activeChip.classList.remove('active'); activeChip=null;} }
+    document.querySelectorAll('.chip').forEach(function(btn){
+      btn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var s=SKILLS[btn.dataset.k]; if(!s) return;
+        if(activeChip===btn){ closeSkill(); return; }
+        if(activeChip) activeChip.classList.remove('active');
+        activeChip=btn; btn.classList.add('active');
+        skillpop.innerHTML='<h4>'+s.t+'</h4><p>'+s.d+'</p>';
+        skillpop.classList.add('on');
+        var r=btn.getBoundingClientRect(), pw=Math.min(300, window.innerWidth-32);
+        var left=r.left+r.width/2-pw/2; left=Math.max(16, Math.min(left, window.innerWidth-pw-16));
+        var top=r.bottom+10;
+        skillpop.style.width=pw+'px'; skillpop.style.left=left+'px'; skillpop.style.top=top+'px';
+      });
+    });
+    document.addEventListener('click',function(e){ if(activeChip && !skillpop.contains(e.target)) closeSkill(); });
+    window.addEventListener('scroll',function(){ if(activeChip) closeSkill(); },{passive:true});
+
+    /* ===== name image trail ===== */
+    var TRAIL = [
+      {cap:'in the lab',   g:'url(images/trail-1.jpg) center/cover no-repeat, linear-gradient(135deg,#c9d8d3,#9fb8b0)'},
+      {cap:'Davos',        g:'url(images/trail-2.jpg) center/cover no-repeat, linear-gradient(135deg,#d6d0c2,#b3a892)'},
+      {cap:'on the water', g:'url(images/trail-3.jpg) center/cover no-repeat, linear-gradient(135deg,#c3d2df,#94aec2)'},
+      {cap:'cleanroom',    g:'url(images/trail-4.jpg) center/cover no-repeat, linear-gradient(135deg,#d3cfe0,#ada4cd)'}
+    ];
+    var ROT=[-14, 11, -8, 15, -12, 7, -16, 10];
+    var nameEl=document.getElementById('name'), ti=0, lastX=0, lastY=0, pool=[], canTrail=!('ontouchstart' in window);
+    function spawn(x,y){
+      var d=TRAIL[ti%TRAIL.length], r=ROT[ti%ROT.length]; ti++;
+      /* alternate left/right with a wide offset so tiles don't stack on top of each other */
+      var jx=(ti%2?1:-1)*(48+(ti*17)%56);
+      var el=document.createElement('div'); el.className='trail';
+      el.style.left=(x+jx)+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg'); el.style.background=d.g;
+      el.innerHTML='<span class="cap">'+d.cap+'</span>';
+      document.body.appendChild(el);
+      void el.offsetWidth; el.classList.add('show');
+      pool.push(el); if(pool.length>4){ pool.shift().remove(); }
+      setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 950);
+    }
+    if(canTrail){
+      nameEl.addEventListener('mouseenter',function(e){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); });
+      /* only spawn a new tile after the cursor has travelled a good distance (less overlap) */
+      nameEl.addEventListener('mousemove',function(e){ var dx=e.clientX-lastX, dy=e.clientY-lastY; if(dx*dx+dy*dy>17000){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); } });
+    }
+
+    /* =========================================================================
+       CONTENT YOU CAN EDIT BELOW
+       All page content lives in the arrays/objects that follow. Edit the text
+       between quotes to change what appears on the site. Structure:
+         • PROJECTS — the work cards + their detail pop-ups
+         • EXP      — Experience entries (CV)
+         • EDU      — Education entries (CV)
+         • SKILLS   — the "Top skills" chip explanations (defined above)
+       To add an item, copy one { ... } block, paste it, and edit the text.
+       ========================================================================= */
+
+    /* ----- WORK / PROJECTS -----
+       Each { } is one project. Key fields:
+         title/headline/client/tag — shown on the card
+         color  — placeholder colour shown until the photo loads
+         photo  — 'url(images/your-photo.jpg) center/cover no-repeat'  (drop the file in /images)
+         summary/location/team/roles/sections — shown inside the detail pop-up
+         link   — optional { href, label } "Read the paper" button           */
+    var PROJECTS = [
+      { id:'fibra', title:'Fibra', meta:'Fibra · Startup · 2026',
+        headline:'Biodegradable fibers grown from algae', client:'Fibra', tag:'R&D · 2026',
+        ar:'4 / 5', w:'clamp(150px, 23vw, 220px)',
+        color:'#12a150', photo:'url(images/work-fibra.jpg) center/cover no-repeat',
+        summary:[
+          "Born from algae, shaped by the ocean. Fibra builds biodegradable fibers that bring technology and sustainability into balance.",
+          "I work in an interdisciplinary team on the R&D of a patent-pending biodegradable fiber for the textile industry.",
+          "Funded by Aalto Design Factory and the School of Chemical Engineering, Aalto University."
+        ],
+        location:'Italy · Finland · Switzerland', team:['Giulia Rinaldo','Oliwia Kaczmarek'],
+        roles:'Research, Prototyping, Business Development',
+        sections:[
+          {label:'Challenge', text:"The textile industry is one of the most polluting in the world. Fibra's goal is to create a new material that is both sustainable and functional, while also being aesthetically pleasing."},
+          {label:'Process', text:"We started with a deep dive into the science of algae and its potential. We're currently prototyping different fibers and testing their properties, from strength to biodegradability."},
+          {label:'Future', text:"The project continues to evolve, with ongoing research and development."}
+        ],
+        images:[{cap:'Fibra — lab work',g:'url(images/fibra-1.jpg) center/cover no-repeat, linear-gradient(135deg,#3d7a63,#9fb8b0)'},{cap:'Fibra — algae fibers',g:'url(images/fibra-2.jpg) center/cover no-repeat, linear-gradient(135deg,#5a8c72,#c8d8c4)'}] },
+
+      { id:'sound', title:'Sound-Guided Regeneration', meta:'Sound-Guided Regeneration · Research · 2025',
+        headline:'Guiding tissue regeneration with sound', client:'AO Research Institute, Davos', tag:'Research · 2025',
+        ar:'16 / 10', w:'clamp(210px, 32vw, 320px)',
+        color:'#2f5fe6', photo:'url(images/work-sound.jpg) center/cover no-repeat',
+        summary:[
+          "Translational research in biofabrication and tissue engineering — using controlled acoustic and mechanical cues to steer how cells organise and rebuild damaged tissue.",
+          "Carried out within a quality-controlled (ISO / GLP) environment, with a clear line of sight to future Clinical Trial Applications."
+        ],
+        location:'Davos, Switzerland', team:['AO Research Institute'],
+        roles:'Translational research, Assay design, Regulatory (ISO / GLP)',
+        sections:[
+          {label:'Context', text:"Mechanical cues are as instructive to cells as chemical ones. Delivering them with precision could make regeneration faster, more targeted and less dependent on biologics alone."},
+          {label:'Approach', text:"Designing stimulation protocols, running them on cell and tissue models, and reading out the biological response — in close collaboration with surgeons and clinical experts."},
+          {label:'Direction', text:"Building the audit-ready evidence and quality foundation needed to move from the bench toward the clinic."}
+        ],
+        images:[{cap:'Tissue models',g:'url(images/sound-1.jpg) center/cover no-repeat, linear-gradient(135deg,#3c5ea0,#94aec2)'},{cap:'Acoustic stimulation',g:'url(images/sound-2.jpg) center/cover no-repeat, linear-gradient(135deg,#5a6fb0,#c6cee8)'}] },
+
+      { id:'cartilage', title:'Bioprinted Cartilage', meta:'Bioprinted Cartilage · Research · 2024',
+        headline:'3D-bioprinted hydrogels for cartilage repair', client:'Reykjavík University', tag:'Research · 2024',
+        ar:'3 / 4', w:'clamp(150px, 23vw, 220px)',
+        color:'#e0327e', photo:'url(images/work-cartilage.jpg) center/cover no-repeat',
+        summary:[
+          "3D-bioprinted solutions for cartilage repair, developed in direct collaboration with the National University Hospital of Iceland (Landspítali).",
+          "An Erasmus+ research traineeship at Reykjavík University."
+        ],
+        location:'Reykjavík, Iceland', team:['Reykjavík University','Landspítali'],
+        roles:'3D bioprinting, Mechanical & biological characterization',
+        sections:[
+          {label:'Challenge', text:"Cartilage has a limited capacity to heal. Engineering a printable material that is both mechanically sound and biologically friendly is the central difficulty."},
+          {label:'Process', text:"Characterized the mechanical and biological effects of ionic and photo-crosslinking on gelatin-based hydrogels, comparing crosslinking strategies on 3D-bioprinted structures."},
+          {label:'Outcome', text:"A reproducible study clarifying how crosslinking method shapes printed gelatin — published in Polymers (MDPI), 2024."}
+        ],
+        images:[{cap:'Bioprinting',g:'url(images/cartilage-1.jpg) center/cover no-repeat, linear-gradient(135deg,#875d80,#b3a8c0)'},{cap:'Hydrogel scaffold',g:'url(images/cartilage-2.jpg) center/cover no-repeat, linear-gradient(135deg,#a07797,#e0d4de)'}],
+        link:{href:'https://www.mdpi.com/2073-4360/16/19/2741', label:'Read the paper ↗'} }
+    ];
+
+    /* ----- EXPERIENCE (CV) -----
+       r = role/title · o = employer · y = years · loc = location line
+       s = Context · t = Objective · a = Approach · rr = Outcome (the STAR fields
+       shown when the entry is expanded).                                        */
+    var EXP = [
+      { r:'Research Assistant', o:'AO Research Institute, Davos', y:'2025 -', loc:'Davos, Graubünden, Switzerland · On-site',
+        s:"Translational research in biofabrication and tissue engineering, associating fundamental biological investigation with clinically oriented product development.",
+        t:"Ensure data integrity for future Clinical Trial Applications (CTA) within a quality-controlled (ISO and GLP) environment.",
+        a:"Conducting studies in biofabrication and tissue engineering, in close collaboration with surgeons and clinical experts, to develop strategies aimed at future therapeutic applications.",
+        rr:"Clinically oriented research, carried out to a standard fit for future clinical translation." },
+      { r:'R&D Analyst', o:'Abich - Lifeanalytics Cosmetics & MD', y:'2025', loc:'Verbano-Cusio-Ossola, Piedmont, Italy · On-site',
+        s:"Safety and efficacy of cosmetics and medical devices need to be demonstrated without relying on animal testing.",
+        t:"Produce ISO/GLP-compliant evidence for regulatory and technical documentation, and support clients adopting New Approach Methodologies (NAMs).",
+        a:"Performed cellular and molecular safety and efficacy assays, including OECD-compliant 3D reconstructed human tissue models; authored and maintained laboratory SOPs in a GLP-certified environment.",
+        rr:"Evidence used in regulatory and technical documentation for public and private clients, with data quality and traceability throughout." },
+      { r:'GMP Manufacturing Associate - Cell & Gene Therapy', o:'AGC Biologics', y:'2024 - 25', loc:'Milan, Lombardy, Italy · On-site',
+        s:"ATMP production within a Class B/C cleanroom, in an international pharmaceutical setting.",
+        t:"Manufacture advanced therapy medicinal products and document them to EU GMP Annex 1 standard.",
+        a:"Executed Batch Production Records (BPRs) in strict accordance with EU GMP Annex 1, applying aseptic processing and Contamination Control Strategies (CCS).",
+        rr:"Foundational, hands-on experience in compliant ATMP manufacturing and contamination control." },
+      { r:'Graduate Research Fellow - Erasmus+', o:'Reykjavík University', y:'2024', loc:'Reykjavík, Iceland · On-site',
+        s:"Cartilage repair calls for printable materials that are mechanically sound and biologically friendly.",
+        t:"Bring academic research toward real-world clinical settings, in collaboration with the National University Hospital of Iceland (Landspítali).",
+        a:"Developed 3D-bioprinted solutions and led the mechanical and biological characterization of ionic and photo-crosslinking effects on gelatin-based hydrogels.",
+        rr:"A reproducible study, later published in Polymers (MDPI, 2024)." },
+      { r:'MSc Research Internship', o:'Univ. of Eastern Piedmont - TheInnovationLab', y:'2023 - 24', loc:'Novara, Piedmont, Italy · On-site',
+        s:"Novel biomaterials need to be characterized in vitro before translational use.",
+        t:"Test the biocompatibility and antimicrobial properties of novel biomaterials.",
+        a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab ↗</a>.",
+        rr:"In-vitro characterization supporting downstream tissue-engineering work." },
+      { r:'Cellular Biology Internship', o:'University of Insubria', y:'2021 - 22', loc:'Varese, Lombardy, Italy · On-site',
+        s:"First hands-on research in regenerative medicine.",
+        t:"Support skin tissue-engineering studies at the laboratory of cellular biology.",
+        a:"Completed a curricular internship followed by a post-graduation voluntary internship focused on regenerative medicine and skin tissue engineering.",
+        rr:"An experimental foundation for the work that followed." }
+    ];
+
+    /* ----- EDUCATION (CV) -----
+       r = degree · o = institution · y = years · loc = city
+       d = list of sentences; each one is shown on its own line when expanded.
+       Inside a sentence you can use:
+         <span class='grade'>110/110</span>  for the grade
+         <em>...</em>                          for the thesis title (Instrument serif) */
+    var EDU = [
+      { r:'MSc, Medical Biotechnology', o:'University of Eastern Piedmont', y:'2022 - 24', loc:'Novara, Italy',
+        d:[
+          "Cell Therapy, Tissue Engineering and Regenerative Medicine.",
+          "Graduated <span class='grade'>110/110 cum laude</span> with an honourable mention.",
+          "Thesis: <em>&ldquo;Effectiveness of gellan gum scaffolds loaded with Boswellia serrata extract for in-situ modulation of pro-inflammatory pathways affecting cartilage healing.&rdquo;</em>",
+          "Served on the university's Teacher-Student Joint Committee."
+        ] },
+      { r:'BSc, Biotechnology', o:'University of Insubria', y:'2018 - 22', loc:'Varese, Italy',
+        d:[
+          "Graduated <span class='grade'>108/110</span>.",
+          "Thesis: <em>&ldquo;Enhancing skin regeneration with a cell-free human dental pulp stem cell-derived solution combined with a nanostructured scaffold in vivo.&rdquo;</em>"
+        ] },
+      { r:'Technical Diploma', o:'ITE E. Tosi - International marketing relations', y:'2013 - 18', loc:'Busto Arsizio, Italy',
+        d:[
+          "Diploma in administration, finance and marketing with a focus on international relations (<span class='grade'>92/100</span>).",
+          "Included an Erasmus+ experience in Berlin and a school exchange in Tel Aviv."
+        ] }
+    ];
+
+    var byId={}; PROJECTS.forEach(function(p){byId[p.id]=p;});
+
+    /* morph cards */
+    var morph=document.getElementById('morph');
+    PROJECTS.forEach(function(p,i){
+      var el=document.createElement('div'); el.className='mcard'; el.dataset.id=p.id;
+      el.style.setProperty('--i',i); el.style.setProperty('--ar',p.ar); el.style.setProperty('--w',p.w);
+      el.innerHTML='<div class="face"><div class="mc-color" style="background:'+p.color+'"></div>'+
+        '<div class="mc-photo" style="background:'+p.photo+'"></div></div>'+
+        '<div class="cap"><div class="h">'+p.headline+'</div><div class="c">'+p.client+'</div><div class="tag">'+p.tag+'</div></div>';
+      el.addEventListener('click',function(){ openPd(p.id); });
+      morph.appendChild(el);
+    });
+
+    /* experience (STAR) */
+    var eh=document.getElementById('exp-list');
+    EXP.forEach(function(e){
+      var d=document.createElement('details'); d.className='item';
+      d.innerHTML='<summary><span><span class="r">'+e.r+'</span><div class="o">'+e.o+'</div></span>'+
+        '<span class="y">'+e.y+' <span class="plus"></span></span></summary>'+
+        '<div class="body"><div class="star">'+
+          '<div class="cell"><span class="k">Context</span><p>'+e.s+'</p></div>'+
+          '<div class="cell"><span class="k">Objective</span><p>'+e.t+'</p></div>'+
+          '<div class="cell"><span class="k">Approach</span><p>'+e.a+'</p></div>'+
+          '<div class="cell result"><span class="k">Outcome</span><p>'+e.rr+'</p></div>'+
+          '<div class="loc">'+e.loc+'</div>'+
+        '</div></div>';
+      eh.appendChild(d);
+    });
+
+    /* education */
+    var edh=document.getElementById('edu-list');
+    EDU.forEach(function(e){
+      var d=document.createElement('details'); d.className='item';
+      d.innerHTML='<summary><span><span class="r">'+e.r+'</span><div class="o">'+e.o+'</div></span>'+
+        '<span class="y">'+e.y+' <span class="plus"></span></span></summary>'+
+        '<div class="body">'+e.d.map(function(x){return '<p>'+x+'</p>';}).join('')+'<div class="loc">'+e.loc+'</div></div>';
+      edh.appendChild(d);
+    });
+
+    /* project detail */
+    var pd=document.getElementById('pd'), pdBody=document.getElementById('pdBody'), pdMeta=document.getElementById('pdMeta');
+    var order=PROJECTS.map(function(p){return p.id;}), current=0;
+    function renderPd(id){
+      var p=byId[id]; current=order.indexOf(id); pdMeta.textContent=p.meta;
+      var left='<div class="pd-left"><div class="sum">'+p.summary.map(function(s){return '<p>'+s+'</p>';}).join('')+'</div>'+
+        '<div class="blk"><span class="k">Place</span><br>'+p.location+'</div>'+
+        '<div class="blk"><span class="k">Team</span><br>'+p.team.join('<br>')+'</div>'+
+        '<div class="roles"><span class="k">Keywords</span><br>'+p.roles+'</div>'+
+        (p.link?'<div><a class="pd-link" href="'+p.link.href+'" target="_blank" rel="noopener">'+p.link.label+'</a></div>':'')+'</div>';
+      var right='<div class="pd-right">';
+      p.sections.forEach(function(s,i){
+        right+='<div class="sec2"><div class="sl">'+s.label+'</div><div class="st">'+s.text+'</div></div>';
+        if(i===0 && p.images){ right+='<div class="pd-imgs">'+p.images.map(function(im){return '<div class="ph" style="background:'+im.g+'"><span>'+im.cap+'</span></div>';}).join('')+'</div>'; }
+      });
+      right+='</div>';
+      pdBody.innerHTML=left+right; pd.scrollTop=0;
+    }
+    function openPd(id){ renderPd(id); pd.classList.add('on'); document.body.style.overflow='hidden'; }
+    function closePd(){ pd.classList.remove('on'); document.body.style.overflow=''; }
+    function nextPd(){ renderPd(order[(current+1)%order.length]); pd.scrollTop=0; }
+    document.getElementById('pdClose').addEventListener('click',closePd);
+    document.getElementById('pdNext').addEventListener('click',nextPd);
+    pd.addEventListener('click',function(e){ if(e.target===pd) closePd(); });
+    document.addEventListener('keydown',function(e){ if(!pd.classList.contains('on'))return; if(e.key==='Escape')closePd(); if(e.key==='ArrowRight')nextPd(); });
+
+    /* reveal + morph trigger */
+    function obs(sel, cb){ if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){cb(x.target);io.unobserve(x.target);}});},{threshold:.28,rootMargin:'0px 0px -20px 0px'}); document.querySelectorAll(sel).forEach(function(el){io.observe(el);}); } else document.querySelectorAll(sel).forEach(cb); }
+    obs('.rv', function(el){ el.classList.add('in'); });
+    if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ es.forEach(function(x){ morph.classList.toggle('in', x.isIntersecting); }); },{threshold:.26}).observe(morph); } else morph.classList.add('in');
+  })();
+  </script>
+</body>
+</html>
