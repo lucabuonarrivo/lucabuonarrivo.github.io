@@ -210,8 +210,9 @@
     .pd-right .sec2 { margin-bottom: 40px; }
     .pd-right .sl { color: var(--muted); font-size: 13px; letter-spacing: .04em; margin-bottom: 12px; }
     .pd-right .st { font-family: 'Archivo',sans-serif; color: var(--ink); font-size: 16px; line-height: 1.58; max-width: 48ch; }
-    .pd-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 6px 0 40px; }
-    .ph { aspect-ratio: 4/5; border-radius: 4px; display: grid; place-items: end start; padding: 12px; background-size: cover; background-position: center; background-repeat: no-repeat; }
+    /* photos lie in a horizontal row; with many photos the row scrolls sideways */
+    .pd-imgs { display: flex; gap: 14px; margin: 6px 0 40px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+    .ph { flex: 0 0 auto; width: clamp(220px, 46%, 300px); aspect-ratio: 4/5; border-radius: 4px; display: grid; place-items: end start; padding: 12px; background-size: cover; background-position: center; background-repeat: no-repeat; scroll-snap-align: start; }
     .ph span { font-family: 'Archivo',sans-serif; font-size: 11px; color: rgba(255,255,255,.9); text-shadow: 0 1px 4px rgba(52,45,30,.35); }
     .pd-link { display: inline-block; margin-top: 22px; color: var(--ink); font-family: 'Archivo',sans-serif; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .pd-link:hover { text-decoration-color: transparent; }
