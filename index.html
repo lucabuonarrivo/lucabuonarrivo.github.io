@@ -91,13 +91,13 @@
     /* trail tiles on the name */
     .trail { position: fixed; width: 138px; height: 172px; border-radius: 11px; overflow: hidden; pointer-events: none; z-index: 20;
       box-shadow: 0 22px 55px -18px rgba(52,45,30,.42); transform: translate(-50%,-50%) scale(.7) rotate(var(--r,0deg)); opacity: 0; }
-    .trail.show { animation: pop .9s var(--ease) forwards; will-change: transform, opacity; }
-    /* tiles appear ON the cursor — smooth fade/scale in, gentle drift out */
+    .trail.show { animation: pop 1.1s var(--ease) forwards; will-change: transform, opacity; }
+    /* tiles fade + scale in smoothly, linger, then drift up gently */
     @keyframes pop {
-      0%{opacity:0; transform:translate(-50%,-46%) scale(.86) rotate(var(--r));}
-      22%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
-      68%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
-      100%{opacity:0; transform:translate(-50%,-55%) scale(.99) rotate(var(--r));}
+      0%{opacity:0; transform:translate(-50%,-47%) scale(.9) rotate(var(--r));}
+      16%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
+      72%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
+      100%{opacity:0; transform:translate(-50%,-53%) scale(.99) rotate(var(--r));}
     }
     .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(52,45,30,.4); }
 
@@ -188,7 +188,7 @@
     .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
     .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .outro a:hover { text-decoration-color: transparent; }
-    .made { font-family: 'Archivo',sans-serif !important; font-weight: 400; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--ink); max-width: 560px; margin: 72px auto 0 !important; }
+    .made { font-family: 'Archivo',sans-serif !important; font-weight: 500; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--beige); max-width: 560px; margin: 72px auto 0 !important; }
     .cph { font-size: 12px; letter-spacing: .01em; color: var(--faint); margin-top: 42px; }
 
     /* ---------- project detail ---------- */
@@ -387,36 +387,42 @@
     /* Trail tiles: put a photo file in images/ and reference it as `src`.
        Each tile automatically takes the ORIENTATION (portrait/landscape) of its photo. */
     var TRAIL = [
-      {cap:'Davos',     src:'images/davos.jpeg',     grad:'linear-gradient(135deg,#d6d0c2,#b3a892)'},
-      {cap:'Reykjavík', src:'images/reykjavik.jpeg', grad:'linear-gradient(135deg,#c3d2df,#94aec2)'},
-      {cap:'me :)',     src:'images/luca.jpeg',      grad:'linear-gradient(135deg,#d3cfe0,#ada4cd)', crop:0.15}
+      {cap:'Davos', src:'images/davos.jpeg'},
+      {cap:'Reykjavík University', src:'images/reykjavik.jpeg'},
+      {cap:'Me :)', src:'images/luca.jpeg', crop:0.15}
     ];
     /* preload to learn each photo's aspect ratio (falls back to a portrait tile until it loads) */
     TRAIL.forEach(function(t){ t.ar=0.8; var im=new Image(); im.onload=function(){ if(im.naturalWidth) t.ar=im.naturalWidth/im.naturalHeight; }; im.src=t.src; });
     var ROT=[-14, 11, -8, 15, -12, 7, -16, 10];
-    var nameEl=document.getElementById('name'), ti=0, lastX=0, lastY=0, pool=[], canTrail=!('ontouchstart' in window);
+    var nameEl=document.getElementById('name'), ti=0, pool=[], lastT=0, canTrail=!('ontouchstart' in window);
     function spawn(x,y){
       var d=TRAIL[ti%TRAIL.length], r=ROT[ti%ROT.length]; ti++;
-      /* small alternating offset so tiles land right on the cursor without perfectly overlapping */
-      var jx=(ti%2?1:-1)*(14+(ti*7)%22);
       var el=document.createElement('div'); el.className='trail';
-      /* size the tile to the photo's orientation (longest side ~180px) */
-      var ar=d.ar||0.8, LONG=180, w, h;
+      /* size the tile to the photo's orientation (longest side ~184px) */
+      var ar=d.ar||0.8, LONG=184, w, h;
       if(ar>=1){ w=LONG; h=Math.round(LONG/ar); } else { h=LONG; w=Math.round(LONG*ar); }
       if(d.crop){ h=Math.round(h*(1-d.crop)); }   /* trim a bit off the bottom of the photo */
       el.style.width=w+'px'; el.style.height=h+'px';
-      el.style.left=(x+jx)+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg');
-      el.style.background='url('+d.src+') '+(d.crop?'center top':'center')+'/cover no-repeat, '+d.grad;
+      el.style.left=x+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg');
+      el.style.background='url('+d.src+') '+(d.crop?'center top':'center')+'/cover no-repeat, '+(d.grad||'#d7d3cc');
       el.innerHTML='<span class="cap">'+d.cap+'</span>';
       document.body.appendChild(el);
       void el.offsetWidth; el.classList.add('show');
-      pool.push(el); if(pool.length>4){ pool.shift().remove(); }
-      setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 900);
+      pool.push(el); if(pool.length>5){ pool.shift().remove(); }   /* keep a few on screen at once */
+      setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 1100);
+    }
+    /* photos pop up scattered AROUND the name (not tied to the cursor) and linger a moment */
+    function spawnAroundName(){
+      var r=nameEl.getBoundingClientRect();
+      var mx=r.width*0.08, my=r.height*1.1;
+      var x=r.left - mx + Math.random()*(r.width + 2*mx);
+      var y=r.top  - my + Math.random()*(r.height + 2*my);
+      spawn(x,y);
     }
     if(canTrail){
-      nameEl.addEventListener('mouseenter',function(e){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); });
-      /* spawn after a short travel so photos appear readily (no long wait) yet stay spaced */
-      nameEl.addEventListener('mousemove',function(e){ var dx=e.clientX-lastX, dy=e.clientY-lastY; if(dx*dx+dy*dy>4200){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); } });
+      nameEl.addEventListener('mouseenter',function(){ spawnAroundName(); lastT=performance.now(); });
+      /* keep photos appearing while the cursor stays over the name, gently paced */
+      nameEl.addEventListener('mousemove',function(){ var now=performance.now(); if(now-lastT>150){ lastT=now; spawnAroundName(); } });
     }
 
     /* =========================================================================
@@ -599,11 +605,11 @@
       var mr=morph.getBoundingClientRect(), cx=mr.left+mr.width/2;
       cards.forEach(function(el,i){
         var off=i-mid, r=el.getBoundingClientRect();
-        var jit=(i%2?1:-1);                                    /* alternating jitter → messier, less symmetric pile */
-        var pileX=(cx-(r.left+r.width/2))*0.72;                /* heavy overlap: cards gather toward centre */
-        el.style.setProperty('--deckX', (pileX + jit*10).toFixed(1)+'px');
+        var out=off===0?0:(off>0?1:-1)*30;                     /* outer cards drift outward so none stays hidden */
+        var pileX=(cx-(r.left+r.width/2))*0.6;                 /* overlap, but each card still peeks out */
+        el.style.setProperty('--deckX', (pileX + out).toFixed(1)+'px');
         el.style.setProperty('--deckY', (10+Math.abs(off)*15 + (i%2?0:9)).toFixed(1)+'px');
-        el.style.setProperty('--deckR', (off*11 + jit*3).toFixed(2)+'deg');
+        el.style.setProperty('--deckR', (off*11 + (i%2?1:-1)*3).toFixed(2)+'deg');
         el.style.setProperty('--liftY', (-(mid-Math.abs(off))*38).toFixed(1)+'px');
         el.style.zIndex=String(Math.round(20-Math.abs(off)*3));  /* centre card on top (kept well below the modal, z-90) */
       });
