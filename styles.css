@@ -7,7 +7,8 @@
   --beige: #b0ada5;   /* soft greyish tone (used for the Outcome line) */
   --max: 720px;
   --ease: cubic-bezier(.4,0,.15,1);
-  --sel-ink: #1f52e0; /* blue — selected text lights up (no background block) */
+  --sel-bg: #cfe0ff;  /* azure — text-selection highlight */
+  --sel-ink: #1f52e0; /* blue — selected text */
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
@@ -17,7 +18,7 @@ body {
   font-size: 16px; line-height: 1.6; letter-spacing: -0.006em;
   font-kerning: auto; text-rendering: optimizeLegibility; /* automatic kerning site-wide */
 }
-::selection { background: transparent; color: var(--sel-ink); }
+::selection { background: var(--sel-bg); color: var(--sel-ink); }
 a { color: inherit; text-decoration: none; }
 .serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
 
@@ -35,7 +36,6 @@ a { color: inherit; text-decoration: none; }
 .hero { min-height: 86vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 26px 40px; }
 .hero-line { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.8rem, 4.85vw, 3.05rem); line-height: 1.2; color: var(--ink); max-width: 900px; letter-spacing: -0.012em; }
 .hero-line .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
-.hero-line .amp { font-family: 'Instrument Serif', serif; font-style: italic; }
 .ilink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
 .ilink:hover { text-decoration-color: transparent; }
 
@@ -102,7 +102,6 @@ a { color: inherit; text-decoration: none; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 82px 26px 34px; }
 section { padding: 82px 0 34px; }
 .sec-title { font-family: 'Instrument Serif',serif; text-align: center; font-size: clamp(2.2rem, 5.6vw, 3.1rem); font-weight: 400; font-style: italic; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.005em; }
-.sec-sub { text-align: center; font-size: 13px; letter-spacing: .01em; color: var(--muted); margin-bottom: 44px; font-weight: 400; }
 
 /* ---------- CV entries — cards ---------- */
 .item { border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; padding: 0 22px; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
@@ -133,7 +132,7 @@ section { padding: 82px 0 34px; }
 .star .cell:nth-of-type(2) .k { color: #2f5fe6; }  /* Objective — blue */
 .star .cell:nth-of-type(3) .k { color: #e0327e; }  /* Approach — pink */
 .star .cell.result .k { color: #e0851f; }          /* Outcome  — amber */
-.star .cell p { font-size: 15px; line-height: 1.58; color: var(--body); }
+.star .cell p { font-size: 15px; line-height: 1.58; color: var(--ink); }
 .loc { grid-column: 1 / -1; font-size: 12px; color: var(--ink); margin-top: 20px; }
 .body a { color: var(--ink); border-bottom: 1px solid var(--ink); transition: border-color .25s; }
 .body a:hover { border-color: transparent; }
@@ -159,7 +158,6 @@ section { padding: 82px 0 34px; }
 .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
 .outro a:hover { text-decoration-color: transparent; }
 .made { font-family: 'Archivo',sans-serif !important; font-weight: 400 !important; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--beige) !important; max-width: 560px; margin: 72px auto 0 !important; }
-.cph { font-size: 12px; letter-spacing: .01em; color: var(--muted); margin-top: 42px; }
 
 /* ---------- project detail ---------- */
 .pd { position: fixed; inset: 0; z-index: 90; background: rgba(28,26,20,.34); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 22px; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease); }
@@ -170,8 +168,6 @@ section { padding: 82px 0 34px; }
 .pd-bar .l { display: flex; gap: 28px; align-items: center; }
 .pd-bar button { background: none; border: none; font-family: 'Archivo',sans-serif; font-size: 13px; color: var(--muted); cursor: pointer; padding: 0; transition: color .2s; }
 .pd-bar button:hover { color: var(--ink); }
-/* Next arrow: same glyph as the InnovationLab ↗, rotated 45° so it points right */
-.pd-bar .narr { display: inline-block; transform: rotate(45deg); }
 .pd-bar .meta { font-size: 13px; color: var(--ink); }
 .pd-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 0.82fr 1.18fr; }
 .pd-left { color: var(--ink); font-size: 15.5px; line-height: 1.6; padding: 42px 30px 44px 40px; overflow: hidden; border-right: 1px solid var(--line); }
