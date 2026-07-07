@@ -74,21 +74,23 @@
     el.innerHTML='<span class="cap">'+d.cap+'</span>';
     document.body.appendChild(el);
     void el.offsetWidth; el.classList.add('show');
-    pool.push(el); if(pool.length>5){ pool.shift().remove(); }   /* keep a few on screen at once */
-    setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 1100);
+    pool.push(el); if(pool.length>2){ pool.shift().remove(); }   /* at most 2 photos on screen at once */
+    setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 950);
   }
-  /* photos pop up scattered AROUND the name (not tied to the cursor) and linger a moment */
+  /* photos appear one at a time, on ALTERNATING sides of the name, so the (max 2)
+     visible ones sit apart and don't cover each other */
+  var side=1;
   function spawnAroundName(){
-    var r=nameEl.getBoundingClientRect();
-    var mx=r.width*0.08, my=r.height*1.1;
-    var x=r.left - mx + Math.random()*(r.width + 2*mx);
-    var y=r.top  - my + Math.random()*(r.height + 2*my);
+    var r=nameEl.getBoundingClientRect(); side*=-1;
+    var cx=r.left+r.width/2, half=r.width/2;
+    var x=cx + side*(half*0.5 + Math.random()*half*0.45);
+    var y=r.top + r.height/2 + (Math.random()*2-1)*(r.height*0.85);
     spawn(x,y);
   }
   if(canTrail){
     nameEl.addEventListener('mouseenter',function(){ spawnAroundName(); lastT=performance.now(); });
-    /* keep photos appearing while the cursor stays over the name, gently paced */
-    nameEl.addEventListener('mousemove',function(){ var now=performance.now(); if(now-lastT>150){ lastT=now; spawnAroundName(); } });
+    /* one photo at a time, gently paced while the cursor stays over the name */
+    nameEl.addEventListener('mousemove',function(){ var now=performance.now(); if(now-lastT>430){ lastT=now; spawnAroundName(); } });
   }
 
   /* =========================================================================
@@ -164,7 +166,7 @@
         {label:'Outcome', text:"A reproducible study clarifying how crosslinking method shapes printed gelatin — published in Polymers (MDPI), 2024."}
       ],
       images:[{src:'images/cartilage-01.jpg',cap:'Bioprinting'},{src:'images/cartilage-02.jpg',cap:'Hydrogel scaffold'}],
-      link:{href:'https://www.mdpi.com/2073-4360/16/19/2741', label:'Read the paper ↗'} }
+      link:{href:'https://www.mdpi.com/2073-4360/16/19/2741', label:'Read the paper ↗︎'} }
   ];
 
   /* ----- EXPERIENCE (CV) -----
@@ -203,7 +205,7 @@
     { r:'MSc Research Internship', o:'Univ. of Eastern Piedmont - TheInnovationLab', y:'2023 - 24', loc:'Novara, Piedmont, Italy · On-site',
       s:"Novel biomaterials need to be characterized in vitro before translational use.",
       t:"Test the biocompatibility and antimicrobial properties of novel biomaterials.",
-      a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab ↗</a>.",
+      a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab ↗︎</a>.",
       rr:"In-vitro characterization supporting downstream tissue-engineering work." },
     { r:'Cellular Biology Internship', o:'University of Insubria', y:'2021 - 22', loc:'Varese, Lombardy, Italy · On-site',
       s:"First hands-on research in regenerative medicine.",

@@ -84,7 +84,6 @@ a { color: inherit; text-decoration: none; }
 .mc-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i) * .09s + .35s); }
 /* project cards hover: lift + a slightly lighter shadow than the rest of the site */
 .mcard:hover .face { transform: translateY(-6px); box-shadow: 0 22px 46px -16px rgba(52,45,30,.20); }
-.mcard:hover .mc-photo { transform: scale(1.05); }
 /* the caption text lifts together with the card on hover */
 .morph.in .mcard:hover .cap { transform: translateY(-6px); }
 .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease) calc(var(--i) * .09s + .5s), transform .35s var(--ease); }
@@ -160,7 +159,7 @@ section { padding: 82px 0 34px; }
 .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
 .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
 .outro a:hover { text-decoration-color: transparent; }
-.made { font-family: 'Archivo',sans-serif !important; font-weight: 500; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--beige); max-width: 560px; margin: 72px auto 0 !important; }
+.made { font-family: 'Archivo',sans-serif !important; font-weight: 500 !important; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--beige) !important; max-width: 560px; margin: 72px auto 0 !important; }
 .cph { font-size: 12px; letter-spacing: .01em; color: var(--muted); margin-top: 42px; }
 
 /* ---------- project detail ---------- */
