@@ -114,7 +114,7 @@
        link    — optional { href, label } "Read the paper" button          */
   var PROJECTS = [
     { id:'fibra', title:'Fibra', meta:'Fibra · Startup · 2026',
-      headline:'Biodegradable fibers grown from algae', client:'Fibra', tag:'R&D · 2026',
+      headline:'Biodegradable fibers grown from algae', client:'Fibra', tag:'Startup · 2026',
       ar:0.667,
       color:'#12a150',
       summary:[
@@ -348,7 +348,7 @@
     var left='<div class="pd-left"><div class="sum">'+p.summary.map(function(s){return '<p>'+s+'</p>';}).join('')+'</div>'+
       '<div class="blk"><span class="k">Place</span><br>'+p.location+'</div>'+
       '<div class="blk"><span class="k">Team</span><br>'+p.team.join('<br>')+'</div>'+
-      '<div class="roles"><span class="k">Keywords</span><br>'+p.roles+'</div>'+
+      '<div class="roles"><span class="k">Skills</span><br>'+p.roles+'</div>'+
       (p.link?'<div><a class="pd-link" href="'+p.link.href+'" target="_blank" rel="noopener">'+p.link.label+'</a></div>':'')+'</div>';
     var right='<div class="pd-right">';
     /* colour the section titles with the same palette as the CV STAR labels */
