@@ -80,7 +80,7 @@
 
     /* floating translation tip */
     .gtip { position: fixed; z-index: 9; pointer-events: none; font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--ink);
-      background: var(--bg); border: 1px solid var(--line); box-shadow: 0 10px 28px -12px rgba(52,45,30,.3);
+      background: var(--bg); border: 1px solid var(--line); box-shadow: 0 14px 30px -8px rgba(52,45,30,.34);
       padding: 6px 13px; border-radius: 999px; white-space: nowrap; opacity: 0; transform: translate(0, 4px); transition: opacity .22s; }
     .gtip.on { opacity: 1; }
 
@@ -99,8 +99,8 @@
 
     /* ---------- selected work — colored cards → photo on scroll ---------- */
     #work { padding: 24px 0 96px; }
-    .morph { display: flex; justify-content: center; align-items: flex-end; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
-    .mcard { flex: 0 0 var(--w, clamp(150px, 24vw, 236px)); cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i) * .1s); }
+    .morph { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
+    .mcard { flex: 0 0 var(--w, clamp(150px, 24vw, 236px)); cursor: pointer; transition: transform 1s var(--ease); transition-delay: calc(var(--i) * .08s); }
     .mcard .face { position: relative; aspect-ratio: var(--ar, 3/4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(52,45,30,.34); transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
     .mc-color { position: absolute; inset: 0; }
     .mc-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i) * .09s + .35s); }
@@ -111,8 +111,12 @@
     .mcard .cap .h { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 15.5px; color: var(--ink); line-height: 1.32; letter-spacing: -0.01em; }
     .mcard .cap .c { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
     .mcard .cap .tag { font-size: 13px; color: var(--faint); margin-top: 2px; }
-    /* reveal: all three cards fade/rise into a clean row, centre one lifted */
-    .morph.in .mcard { opacity: 1; transform: none; }
+    /* disordered "deck" — all three cards poke out at the bottom of the hero with their colours */
+    .mcard:nth-child(1){ transform: translate(42%, 26px) rotate(-12deg); transform-origin: bottom center; z-index: 1; }
+    .mcard:nth-child(2){ transform: translateY(4px) rotate(3deg); transform-origin: bottom center; z-index: 3; }
+    .mcard:nth-child(3){ transform: translate(-42%, 26px) rotate(12deg); transform-origin: bottom center; z-index: 2; }
+    /* on scroll they settle into a clean row, centre one lifted */
+    .morph.in .mcard { transform: none; }
     .morph.in .mcard:nth-child(2) { transform: translateY(-46px); }
     .morph.in .mc-photo { opacity: 1; }
     .morph.in .cap { opacity: 1; transform: none; }
@@ -149,6 +153,11 @@
     @keyframes rev { from{opacity:0; transform:translateY(-6px);} to{opacity:1;transform:none;} }
     .star { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px; max-width: 640px; }
     .star .cell .k { font-size: 12px; letter-spacing: .01em; color: var(--muted); display:block; margin-bottom: 5px; font-weight: 400; }
+    /* colour the STAR labels with the same palette as the project cards */
+    .star .cell:nth-of-type(1) .k { color: #12a150; }  /* Context  — green */
+    .star .cell:nth-of-type(2) .k { color: #2f5fe6; }  /* Objective — blue */
+    .star .cell:nth-of-type(3) .k { color: #e0327e; }  /* Approach — pink */
+    .star .cell.result .k { color: #e0851f; }          /* Outcome  — amber */
     .star .cell p { font-size: 15px; line-height: 1.58; color: var(--body); }
     .loc { grid-column: 1 / -1; font-size: 12px; color: var(--ink); margin-top: 20px; }
     .body a { color: var(--ink); border-bottom: 1px solid var(--ink); transition: border-color .25s; }
@@ -169,8 +178,8 @@
     .pub .pm .v { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13px; color: var(--ink); }
 
     /* ---------- outro ---------- */
-    .outro { text-align: center; padding: 76px 26px 48px; border-top: 1px solid var(--line); }
-    .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.55rem, 3.7vw, 2rem); line-height: 1.24; color: var(--ink); max-width: 720px; margin: 0 auto 14px; letter-spacing: -0.012em; }
+    .outro { text-align: center; padding: 130px 26px 130px; border-top: 1px solid var(--line); margin-top: 56px; }
+    .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.7rem, 4.5vw, 2.8rem); line-height: 1.24; color: var(--ink); max-width: 820px; margin: 0 auto 22px; letter-spacing: -0.012em; }
     .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
     .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .outro a:hover { text-decoration-color: transparent; }
@@ -230,7 +239,8 @@
       .mcard .cap .c, .mcard .cap .tag { font-size: 11.5px; }
       .item > summary { gap: 3px 12px; }
       .pub .pt { font-size: 18px; }
-      .outro p { font-size: clamp(1.3rem, 5.4vw, 1.62rem); }
+      .outro { padding: 90px 22px 90px; }
+      .outro p { font-size: clamp(1.5rem, 5.6vw, 2rem); }
     }
 
     @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;} html{scroll-behavior:auto;} .item[open] .body{animation:none;} .trail{display:none;} .morph .mcard{transform:none;opacity:1;} .mc-photo{opacity:1;} .cap{opacity:1;transform:none;} }
@@ -295,7 +305,7 @@
       <p>I build my work around applying biotechnology in highly regulated environments.</p>
       <p>When I'm not in the lab, I'm usually out kayaking, trekking or snowboarding :)</p>
       <p>Contact me on <a href="https://www.linkedin.com/in/luca-buonarrivo-4248b022a/" target="_blank" rel="noopener">LinkedIn</a> or by <a href="mailto:luca.buonarrivo@gmail.com">email</a>.</p>
-      <p class="made">Lately, I've also been getting into AI &amp; product design. I built this site with a little help from AI.</p>
+      <p class="made">Lately, I've also been getting into AI &amp; product design. <br> I built this website with the little help of Claude Code.</p>
     </section>
   </main>
 
@@ -426,7 +436,7 @@
           {label:'Process', text:"We started with a deep dive into the science of algae and its potential. We're currently prototyping different fibers and testing their properties, from strength to biodegradability."},
           {label:'Future', text:"The project continues to evolve, with ongoing research and development."}
         ],
-        images:[{cap:'Fibra — lab work',g:'url(images/fibra-1.jpg) center/cover no-repeat, linear-gradient(135deg,#3d7a63,#9fb8b0)'},{cap:'Fibra — algae fibers',g:'url(images/fibra-2.jpg) center/cover no-repeat, linear-gradient(135deg,#5a8c72,#c8d8c4)'}] },
+        images:[{cap:'Algae fibers',g:'url(images/fibra-01.jpg) center/cover no-repeat, linear-gradient(135deg,#3d7a63,#9fb8b0)'},{cap:'Fiber samples',g:'url(images/fibra-02.jpg) center/cover no-repeat, linear-gradient(135deg,#5a8c72,#c8d8c4)'}] },
 
       { id:'sound', title:'Sound-Guided Regeneration', meta:'Sound-Guided Regeneration · Research · 2025',
         headline:'Guiding tissue regeneration with sound', client:'AO Research Institute, Davos', tag:'Research · 2025',

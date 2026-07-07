@@ -7,15 +7,12 @@ work-sound.jpg        → Sound-Guided    (orizzontale, ~16:10)
 work-cartilage.jpg    → Bioprinted Cartilage (verticale, ~3:4)
 
 ── Foto dentro la scheda di dettaglio (2 per progetto) ──
-fibra-1.jpg      fibra-2.jpg
-sound-1.jpg      sound-2.jpg
-cartilage-1.jpg  cartilage-2.jpg
+fibra-01.jpg      fibra-02.jpg
+sound-01.jpg      sound-02.jpg
+cartilage-01.jpg  cartilage-02.jpg
 
 ── Foto che appaiono passando il cursore sul nome "Luca Buonarrivo" ──
 trail-1.jpg   → in the lab
 trail-2.jpg   → Davos
 trail-3.jpg   → on the water
 trail-4.jpg   → cleanroom
-
-COME FARE: trascina le immagini in questa cartella (Sites/luca/images/),
-rinominale con i nomi qui sopra, poi ricarica index.html nel browser.
