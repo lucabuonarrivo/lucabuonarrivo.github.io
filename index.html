@@ -3,15 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luca Buonarrivo</title>
+  <title>Luca Buonarrivo · Medical biotechnologist</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
   <link rel="mask-icon" href="favicon.svg?v=3" color="#17150f" />
   <meta name="theme-color" content="#ffffff" />
-  <meta name="description" content="Luca Buonarrivo — Medical biotechnologist working in cell therapy, tissue engineering and regulatory science across GMP manufacturing, ISO/GLP R&D and translational research." />
+  <meta name="description" content="Luca Buonarrivo · Medical biotechnologist working in cell therapy, tissue engineering and regulatory science across GMP manufacturing, ISO/GLP R&D and translational research." />
   <meta name="author" content="Luca Buonarrivo" />
+
+  <!-- Social-sharing preview (Open Graph + Twitter) — this text shows when the link is shared -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Luca Buonarrivo" />
-  <meta property="og:description" content="Medical biotechnologist — cell therapy, tissue engineering & regulatory science." />
+  <meta property="og:site_name" content="Luca Buonarrivo" />
+  <meta property="og:url" content="https://lucabuonarrivo.github.io/" />
+  <meta property="og:title" content="Luca Buonarrivo · Medical biotechnologist" />
+  <meta property="og:description" content="Medical biotechnologist · cell therapy, tissue engineering & regulatory science." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Luca Buonarrivo · Medical biotechnologist" />
+  <meta name="twitter:description" content="Medical biotechnologist · cell therapy, tissue engineering & regulatory science." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -79,14 +86,14 @@
 
     /* trail tiles on the name */
     .trail { position: fixed; width: 138px; height: 172px; border-radius: 11px; overflow: hidden; pointer-events: none; z-index: 20;
-      box-shadow: 0 22px 55px -18px rgba(52,45,30,.42); transform: translate(-50%,10%) scale(.7) rotate(var(--r,0deg)); opacity: 0; }
-    .trail.show { animation: pop .95s var(--ease) forwards; }
-    /* tiles appear just BELOW the cursor — fade/scale in place, no downward drift */
+      box-shadow: 0 22px 55px -18px rgba(52,45,30,.42); transform: translate(-50%,-50%) scale(.7) rotate(var(--r,0deg)); opacity: 0; }
+    .trail.show { animation: pop .7s var(--ease) forwards; }
+    /* tiles appear ON the cursor — quick fade/scale in place */
     @keyframes pop {
-      0%{opacity:0; transform:translate(-50%,10%) scale(.72) rotate(var(--r));}
-      18%{opacity:1; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
-      70%{opacity:1; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
-      100%{opacity:0; transform:translate(-50%,10%) scale(1) rotate(var(--r));}
+      0%{opacity:0; transform:translate(-50%,-50%) scale(.72) rotate(var(--r));}
+      13%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
+      68%{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
+      100%{opacity:0; transform:translate(-50%,-50%) scale(1) rotate(var(--r));}
     }
     .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(52,45,30,.4); }
 
@@ -366,20 +373,20 @@
     var nameEl=document.getElementById('name'), ti=0, lastX=0, lastY=0, pool=[], canTrail=!('ontouchstart' in window);
     function spawn(x,y){
       var d=TRAIL[ti%TRAIL.length], r=ROT[ti%ROT.length]; ti++;
-      /* alternate left/right with a wide offset so tiles don't stack on top of each other */
-      var jx=(ti%2?1:-1)*(48+(ti*17)%56);
+      /* small alternating offset so tiles land right on the cursor without perfectly overlapping */
+      var jx=(ti%2?1:-1)*(14+(ti*7)%22);
       var el=document.createElement('div'); el.className='trail';
       el.style.left=(x+jx)+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg'); el.style.background=d.g;
       el.innerHTML='<span class="cap">'+d.cap+'</span>';
       document.body.appendChild(el);
       void el.offsetWidth; el.classList.add('show');
       pool.push(el); if(pool.length>4){ pool.shift().remove(); }
-      setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 950);
+      setTimeout(function(){ el.remove(); var k=pool.indexOf(el); if(k>-1)pool.splice(k,1); }, 720);
     }
     if(canTrail){
       nameEl.addEventListener('mouseenter',function(e){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); });
-      /* only spawn a new tile after the cursor has travelled a good distance (less overlap) */
-      nameEl.addEventListener('mousemove',function(e){ var dx=e.clientX-lastX, dy=e.clientY-lastY; if(dx*dx+dy*dy>17000){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); } });
+      /* spawn a new tile after only a short cursor movement, so photos appear quickly */
+      nameEl.addEventListener('mousemove',function(e){ var dx=e.clientX-lastX, dy=e.clientY-lastY; if(dx*dx+dy*dy>4200){ lastX=e.clientX; lastY=e.clientY; spawn(e.clientX,e.clientY); } });
     }
 
     /* =========================================================================
