@@ -74,7 +74,7 @@ a { color: inherit; text-decoration: none; }
 .trail .cap { position: absolute; left: 11px; bottom: 10px; font-family: 'Archivo',sans-serif; font-size: 10.5px; color: rgba(255,255,255,.94); text-shadow: 0 1px 4px rgba(52,45,30,.4); }
 
 /* ---------- selected work — colored cards → photo on scroll ---------- */
-#work { padding: 64px 0 130px; }   /* top gap: deck sits a little lower while still poking up from below the hero */
+#work { padding: 40px 0 130px; }   /* top gap: deck sits a little lower while still poking up from below the hero */
 @media (min-width: 701px){ #experience { padding-top: 40px; } }
 .morph { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
 /* every card is the same height; its width follows the aspect ratio of the project's first photo (set from the image's natural size in JS) */
