@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -61,7 +61,7 @@
     .hero-line { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.8rem, 4.85vw, 3.05rem); line-height: 1.2; color: var(--ink); max-width: 900px; letter-spacing: -0.012em; }
     .hero-line .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
     .hero-line .amp { font-family: 'Instrument Serif', serif; font-style: italic; }
-    .ilink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .ilink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .ilink:hover { text-decoration-color: transparent; }
 
     .greet { position: relative; display: inline-block; cursor: default; transition: opacity .3s; }
@@ -172,9 +172,9 @@
     .outro { text-align: center; padding: 76px 26px 48px; }
     .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.55rem, 3.7vw, 2rem); line-height: 1.24; color: var(--ink); max-width: 720px; margin: 0 auto 14px; letter-spacing: -0.012em; }
     .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
-    .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .outro a:hover { text-decoration-color: transparent; }
-    .made { font-family: 'Archivo',sans-serif !important; font-weight: 400; font-size: 13px !important; line-height: 1.6; letter-spacing: .01em; color: var(--muted); max-width: 500px; margin: 72px auto 0 !important; }
+    .made { font-family: 'Archivo',sans-serif !important; font-weight: 500; font-size: 13px !important; line-height: 1.6; letter-spacing: .01em; color: var(--muted); max-width: 500px; margin: 72px auto 0 !important; }
     .cph { font-size: 12px; letter-spacing: .01em; color: var(--faint); margin-top: 42px; }
 
     /* ---------- project detail ---------- */
@@ -186,9 +186,11 @@
     .pd-bar .l { display: flex; gap: 28px; align-items: center; }
     .pd-bar button { background: none; border: none; font-family: 'Archivo',sans-serif; font-size: 13px; color: var(--muted); cursor: pointer; padding: 0; transition: color .2s; }
     .pd-bar button:hover { color: var(--ink); }
+    /* Next arrow: same glyph as the InnovationLab ↗, rotated 45° so it points right */
+    .pd-bar .narr { display: inline-block; transform: rotate(45deg); }
     .pd-bar .meta { font-size: 13px; color: var(--ink); }
     .pd-body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 0.82fr 1.18fr; }
-    .pd-left { color: var(--ink); font-size: 15.5px; line-height: 1.6; padding: 42px 30px 44px 40px; overflow: hidden; }
+    .pd-left { color: var(--ink); font-size: 15.5px; line-height: 1.6; padding: 42px 30px 44px 40px; overflow: hidden; border-right: 1px solid var(--line); }
     .pd-right { overflow-y: auto; padding: 42px 40px 60px 30px; }
     .pd-left .sum { font-family: 'Archivo',sans-serif; font-size: 16px; line-height: 1.58; }
     .pd-left .sum p { margin-bottom: 16px; }
@@ -207,7 +209,7 @@
       .pd-card { height: auto; max-height: 92vh; overflow-y: auto; }
       .pd-bar{ padding: 16px 22px;} .pd-bar .l{ gap: 18px;}
       .pd-body{ display: block; }
-      .pd-left { padding: 28px 22px 6px; overflow: visible; }
+      .pd-left { padding: 28px 22px 6px; overflow: visible; border-right: none; }
       .pd-right { overflow: visible; padding: 10px 22px 90px; }
     }
 
@@ -292,7 +294,7 @@
     <section id="contact" class="outro rv">
       <p>I build my work around applying biotechnology in highly regulated environments.</p>
       <p>When I'm not in the lab, I'm usually out kayaking, trekking or snowboarding :)</p>
-      <p>Say hi on <a href="https://www.linkedin.com/in/luca-buonarrivo-4248b022a/" target="_blank" rel="noopener">LinkedIn</a> or by <a href="mailto:luca.buonarrivo@gmail.com">email</a>.</p>
+      <p>Contact me on <a href="https://www.linkedin.com/in/luca-buonarrivo-4248b022a/" target="_blank" rel="noopener">LinkedIn</a> or by <a href="mailto:luca.buonarrivo@gmail.com">email</a>.</p>
       <p class="made">Lately, I've also been getting into AI &amp; product design. I built this site with a little help from AI.</p>
     </section>
   </main>
@@ -304,7 +306,7 @@
     <div class="pd-card">
       <div class="pd-bar">
         <div class="l"><button id="pdClose">Close</button><span class="meta" id="pdMeta"></span></div>
-        <button id="pdNext">Next →</button>
+        <button id="pdNext">Next <span class="narr">↗</span></button>
       </div>
       <div class="pd-body" id="pdBody"></div>
     </div>
