@@ -35,6 +35,8 @@
       --beige: #b0ada5;   /* soft greyish tone (used for the Outcome line) */
       --max: 720px;
       --ease: cubic-bezier(.4,0,.15,1);
+      --link: #1f52e0;    /* underlined links — blue text */
+      --linkline: #86b1ff; /* azure underline */
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
@@ -63,7 +65,7 @@
     .hero-line { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.8rem, 4.85vw, 3.05rem); line-height: 1.2; color: var(--ink); max-width: 900px; letter-spacing: -0.012em; }
     .hero-line .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
     .hero-line .amp { font-family: 'Instrument Serif', serif; font-style: italic; }
-    .ilink { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .ilink { color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--linkline); transition: text-decoration-color .25s; }
     .ilink:hover { text-decoration-color: transparent; }
 
     .greet { position: relative; display: inline-block; cursor: default; transition: opacity .3s; }
@@ -108,10 +110,12 @@
     .mcard .face { position: relative; width: 100%; aspect-ratio: var(--aspect, 0.78); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(52,45,30,.34); transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
     .mc-color { position: absolute; inset: 0; }
     .mc-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i) * .09s + .35s); }
-    /* project cards get the same hover as the other cards: lift + stronger shadow */
-    .mcard:hover .face { transform: translateY(-6px); box-shadow: 0 22px 44px -16px rgba(52,45,30,.32); }
+    /* project cards hover: lift + a slightly lighter shadow than the rest of the site */
+    .mcard:hover .face { transform: translateY(-6px); box-shadow: 0 22px 46px -16px rgba(52,45,30,.20); }
     .mcard:hover .mc-photo { transform: scale(1.05); }
-    .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i) * .09s + .5s); }
+    /* the caption text lifts together with the card on hover */
+    .morph.in .mcard:hover .cap { transform: translateY(-6px); }
+    .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease) calc(var(--i) * .09s + .5s), transform .35s var(--ease); }
     .mcard .cap .h { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; font-size: 24px; color: var(--ink); line-height: 1.18; letter-spacing: -0.005em; }
     .mcard .cap .c { font-size: 15px; color: var(--muted); margin-top: 5px; }
     .mcard .cap .tag { font-size: 14px; color: var(--faint); margin-top: 2px; }
@@ -161,7 +165,7 @@
     .star .cell.result .k { color: #e0851f; }          /* Outcome  — amber */
     .star .cell p { font-size: 15px; line-height: 1.58; color: var(--body); }
     .loc { grid-column: 1 / -1; font-size: 12px; color: var(--ink); margin-top: 20px; }
-    .body a { color: var(--ink); border-bottom: 1px solid var(--ink); transition: border-color .25s; }
+    .body a { color: var(--link); border-bottom: 1px solid var(--linkline); transition: border-color .25s; }
     .body a:hover { border-color: transparent; }
     @media (max-width: 560px){ .star { grid-template-columns: 1fr; } }
 
@@ -182,9 +186,9 @@
     .outro { text-align: center; padding: 110px 26px 170px; margin-top: 64px; }
     .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.7rem, 4.5vw, 2.8rem); line-height: 1.24; color: var(--ink); max-width: 820px; margin: 0 auto 22px; letter-spacing: -0.012em; }
     .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
-    .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; color: var(--link); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--linkline); transition: text-decoration-color .25s; }
     .outro a:hover { text-decoration-color: transparent; }
-    .made { font-family: 'Archivo',sans-serif !important; font-weight: 400; font-size: 12.5px !important; line-height: 1.6; letter-spacing: .01em; color: var(--ink); max-width: 500px; margin: 72px auto 0 !important; }
+    .made { font-family: 'Archivo',sans-serif !important; font-weight: 400; font-size: 15.5px !important; line-height: 1.6; letter-spacing: .006em; color: var(--ink); max-width: 560px; margin: 72px auto 0 !important; }
     .cph { font-size: 12px; letter-spacing: .01em; color: var(--faint); margin-top: 42px; }
 
     /* ---------- project detail ---------- */
@@ -214,7 +218,7 @@
     .pd-imgs { display: flex; gap: 14px; margin: 6px 0 40px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
     .ph { flex: 0 0 auto; width: clamp(220px, 46%, 300px); aspect-ratio: 4/5; border-radius: 4px; display: grid; place-items: end start; padding: 12px; background-size: cover; background-position: center; background-repeat: no-repeat; scroll-snap-align: start; }
     .ph span { font-family: 'Archivo',sans-serif; font-size: 11px; color: rgba(255,255,255,.9); text-shadow: 0 1px 4px rgba(52,45,30,.35); }
-    .pd-link { display: inline-block; margin-top: 22px; color: var(--ink); font-family: 'Archivo',sans-serif; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
+    .pd-link { display: inline-block; margin-top: 22px; color: var(--link); font-family: 'Archivo',sans-serif; font-size: 14px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--linkline); transition: text-decoration-color .25s; }
     .pd-link:hover { text-decoration-color: transparent; }
     @media (max-width: 720px){
       .pd-card { height: auto; max-height: 92vh; overflow-y: auto; }
@@ -380,12 +384,16 @@
     window.addEventListener('scroll',function(){ if(activeChip) closeSkill(); },{passive:true});
 
     /* ===== name image trail ===== */
+    /* Trail tiles: put a photo file in images/ and reference it as `src`.
+       Each tile automatically takes the ORIENTATION (portrait/landscape) of its photo. */
     var TRAIL = [
-      {cap:'in the lab',   g:'url(images/trail-1.jpg) center/cover no-repeat, linear-gradient(135deg,#c9d8d3,#9fb8b0)'},
-      {cap:'Davos',        g:'url(images/trail-2.jpg) center/cover no-repeat, linear-gradient(135deg,#d6d0c2,#b3a892)'},
-      {cap:'on the water', g:'url(images/trail-3.jpg) center/cover no-repeat, linear-gradient(135deg,#c3d2df,#94aec2)'},
-      {cap:'cleanroom',    g:'url(images/trail-4.jpg) center/cover no-repeat, linear-gradient(135deg,#d3cfe0,#ada4cd)'}
+      {cap:'in the lab',   src:'images/trail-1.jpg', grad:'linear-gradient(135deg,#c9d8d3,#9fb8b0)'},
+      {cap:'Davos',        src:'images/davos.jpeg',  grad:'linear-gradient(135deg,#d6d0c2,#b3a892)'},
+      {cap:'on the water', src:'images/trail-3.jpg', grad:'linear-gradient(135deg,#c3d2df,#94aec2)'},
+      {cap:'cleanroom',    src:'images/trail-4.jpg', grad:'linear-gradient(135deg,#d3cfe0,#ada4cd)'}
     ];
+    /* preload to learn each photo's aspect ratio (falls back to a portrait tile until it loads) */
+    TRAIL.forEach(function(t){ t.ar=0.8; var im=new Image(); im.onload=function(){ if(im.naturalWidth) t.ar=im.naturalWidth/im.naturalHeight; }; im.src=t.src; });
     var ROT=[-14, 11, -8, 15, -12, 7, -16, 10];
     var nameEl=document.getElementById('name'), ti=0, lastX=0, lastY=0, pool=[], canTrail=!('ontouchstart' in window);
     function spawn(x,y){
@@ -393,7 +401,12 @@
       /* small alternating offset so tiles land right on the cursor without perfectly overlapping */
       var jx=(ti%2?1:-1)*(14+(ti*7)%22);
       var el=document.createElement('div'); el.className='trail';
-      el.style.left=(x+jx)+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg'); el.style.background=d.g;
+      /* size the tile to the photo's orientation (longest side ~180px) */
+      var ar=d.ar||0.8, LONG=180, w, h;
+      if(ar>=1){ w=LONG; h=Math.round(LONG/ar); } else { h=LONG; w=Math.round(LONG*ar); }
+      el.style.width=w+'px'; el.style.height=h+'px';
+      el.style.left=(x+jx)+'px'; el.style.top=y+'px'; el.style.setProperty('--r', r+'deg');
+      el.style.background='url('+d.src+') center/cover no-repeat, '+d.grad;
       el.innerHTML='<span class="cap">'+d.cap+'</span>';
       document.body.appendChild(el);
       void el.offsetWidth; el.classList.add('show');
@@ -586,10 +599,11 @@
       var mr=morph.getBoundingClientRect(), cx=mr.left+mr.width/2;
       cards.forEach(function(el,i){
         var off=i-mid, r=el.getBoundingClientRect();
-        var pileX=(cx-(r.left+r.width/2))*0.6;                 /* gather toward centre (0=row … 1=full pile) */
-        el.style.setProperty('--deckX', pileX.toFixed(1)+'px');
-        el.style.setProperty('--deckY', (8+Math.abs(off)*12).toFixed(1)+'px');
-        el.style.setProperty('--deckR', (off*8).toFixed(2)+'deg');
+        var jit=(i%2?1:-1);                                    /* alternating jitter → messier, less symmetric pile */
+        var pileX=(cx-(r.left+r.width/2))*0.72;                /* heavy overlap: cards gather toward centre */
+        el.style.setProperty('--deckX', (pileX + jit*10).toFixed(1)+'px');
+        el.style.setProperty('--deckY', (10+Math.abs(off)*15 + (i%2?0:9)).toFixed(1)+'px');
+        el.style.setProperty('--deckR', (off*11 + jit*3).toFixed(2)+'deg');
         el.style.setProperty('--liftY', (-(mid-Math.abs(off))*38).toFixed(1)+'px');
         el.style.zIndex=String(Math.round(20-Math.abs(off)*3));  /* centre card on top (kept well below the modal, z-90) */
       });
