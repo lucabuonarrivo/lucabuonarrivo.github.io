@@ -148,9 +148,9 @@ section { padding: 82px 0 34px; }
 .pub { display: block; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; cursor: pointer; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
 .pub:hover { box-shadow: 0 18px 40px -14px rgba(52,45,30,.30); border-color: var(--line); transform: translateY(-5px); }
 .pub .pt { font-family: 'Instrument Serif',serif; font-style: normal; font-weight: 400; color: var(--ink); font-size: 20px; line-height: 1.28; letter-spacing: 0; }
-.pub .pm { margin-top: 9px; font-size: 12.5px; color: var(--ink); display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-.pub .pm span { color: var(--ink); }
-.pub .pm .v { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13px; color: var(--ink); }
+.pub .pm { margin-top: 9px; font-size: 12.5px; color: var(--beige); display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.pub .pm span { color: var(--beige); }
+.pub .pm .v { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13px; color: var(--beige); }
 
 /* ---------- outro ---------- */
 .outro { text-align: center; padding: 110px 26px 170px; margin-top: 64px; }
