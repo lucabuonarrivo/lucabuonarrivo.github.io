@@ -166,7 +166,7 @@
         {label:'Outcome', text:"A reproducible study clarifying how crosslinking method shapes printed gelatin — published in Polymers (MDPI), 2024."}
       ],
       images:[{src:'images/cartilage-01.jpg',cap:'Bioprinting'},{src:'images/cartilage-02.jpg',cap:'Hydrogel scaffold'}],
-      link:{href:'https://www.mdpi.com/2073-4360/16/19/2741', label:'Read the paper ↗︎'} }
+      link:{href:'https://www.mdpi.com/2073-4360/16/19/2741', label:'Read the paper'} }
   ];
 
   /* ----- EXPERIENCE (CV) -----
@@ -205,7 +205,7 @@
     { r:'MSc Research Internship', o:'Univ. of Eastern Piedmont - TheInnovationLab', y:'2023 - 24', loc:'Novara, Piedmont, Italy · On-site',
       s:"Novel biomaterials need to be characterized in vitro before translational use.",
       t:"Test the biocompatibility and antimicrobial properties of novel biomaterials.",
-      a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab ↗︎</a>.",
+      a:"Advanced the use of co-culture systems of cells and bacteria and optimized 3D and dynamic cell-culture systems in the Tissue Engineering and Biomaterials Evaluation laboratory <a href='https://www.theinnovationlab.it' target='_blank' rel='noopener'>TheInnovationLab</a>.",
       rr:"In-vitro characterization supporting downstream tissue-engineering work." },
     { r:'Cellular Biology Internship', o:'University of Insubria', y:'2021 - 22', loc:'Varese, Lombardy, Italy · On-site',
       s:"First hands-on research in regenerative medicine.",
