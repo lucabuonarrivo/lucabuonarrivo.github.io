@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -71,7 +71,7 @@
     .skills-lab { font-size: 12.5px; letter-spacing: .01em; color: var(--ink); font-weight: 400; margin-bottom: 15px; }
     .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; max-width: 560px; }
     .chip { font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 400; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
-    .chip:hover { background: #fff; border-color: transparent; box-shadow: 0 14px 30px -8px rgba(52,45,30,.34); transform: translateY(-5px) scale(1.05); }
+    .chip:hover { background: #fff; border-color: var(--line); box-shadow: 0 14px 30px -8px rgba(52,45,30,.34); transform: translateY(-5px) scale(1.05); }
     .chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
     .skillpop { position: fixed; z-index: 60; width: 300px; max-width: calc(100vw - 32px); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 22px 55px -22px rgba(52,45,30,.32); padding: 16px 18px; text-align: left; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity .2s var(--ease), transform .2s var(--ease); }
     .skillpop.on { opacity: 1; transform: none; pointer-events: auto; }
@@ -100,19 +100,19 @@
     /* ---------- selected work — colored cards → photo on scroll ---------- */
     #work { padding: 24px 0 96px; }
     .morph { display: flex; justify-content: center; align-items: flex-end; gap: clamp(16px, 3.2vw, 34px); min-height: 420px; padding: 0 26px; }
-    .mcard { flex: 0 0 var(--w, clamp(150px, 24vw, 236px)); cursor: pointer; transition: transform 1s var(--ease); transition-delay: calc(var(--i) * .08s); }
-    .mcard .face { position: relative; aspect-ratio: var(--ar, 3/4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(52,45,30,.34); }
+    .mcard { flex: 0 0 var(--w, clamp(150px, 24vw, 236px)); cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i) * .1s); }
+    .mcard .face { position: relative; aspect-ratio: var(--ar, 3/4); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(52,45,30,.34); transition: box-shadow .3s var(--ease), transform .3s var(--ease); }
     .mc-color { position: absolute; inset: 0; }
     .mc-photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i) * .09s + .35s); }
-    .mcard:hover .mc-photo { transform: scale(1.045); }
+    /* project cards get the same hover as the other cards: lift + stronger shadow */
+    .mcard:hover .face { transform: translateY(-6px); box-shadow: 0 22px 44px -16px rgba(52,45,30,.32); }
+    .mcard:hover .mc-photo { transform: scale(1.05); }
     .mcard .cap { margin-top: 14px; opacity: 0; transform: translateY(9px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i) * .09s + .5s); }
     .mcard .cap .h { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 15.5px; color: var(--ink); line-height: 1.32; letter-spacing: -0.01em; }
     .mcard .cap .c { font-size: 13.5px; color: var(--muted); margin-top: 3px; }
     .mcard .cap .tag { font-size: 13px; color: var(--faint); margin-top: 2px; }
-    .mcard:nth-child(1){ transform: translate(46%, 42px) rotate(-13deg); transform-origin: bottom center; z-index: 1; }
-    .mcard:nth-child(2){ transform: translateY(54px) rotate(-1deg); transform-origin: bottom center; z-index: 3; }
-    .mcard:nth-child(3){ transform: translate(-46%, 42px) rotate(13deg); transform-origin: bottom center; z-index: 2; }
-    .morph.in .mcard { transform: none; }
+    /* reveal: all three cards fade/rise into a clean row, centre one lifted */
+    .morph.in .mcard { opacity: 1; transform: none; }
     .morph.in .mcard:nth-child(2) { transform: translateY(-46px); }
     .morph.in .mc-photo { opacity: 1; }
     .morph.in .cap { opacity: 1; transform: none; }
@@ -125,7 +125,7 @@
 
     /* ---------- CV entries — cards ---------- */
     .item { border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; padding: 0 22px; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
-    .item:hover { box-shadow: 0 18px 40px -14px rgba(52,45,30,.30); border-color: transparent; transform: translateY(-5px); }
+    .item:hover { box-shadow: 0 18px 40px -14px rgba(52,45,30,.30); border-color: var(--line); transform: translateY(-5px); }
     .item[open] { box-shadow: 0 10px 28px -18px rgba(52,45,30,.18); }
     .item > summary { list-style: none; cursor: pointer; padding: 20px 0; display: grid; grid-template-columns: 1fr auto; gap: 3px 20px; }
     .item > summary::-webkit-details-marker { display: none; }
@@ -162,19 +162,19 @@
 
     /* ---------- publications — cards ---------- */
     .pub { display: block; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); margin-bottom: 12px; cursor: pointer; transition: box-shadow .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease); }
-    .pub:hover { box-shadow: 0 18px 40px -14px rgba(52,45,30,.30); border-color: transparent; transform: translateY(-5px); }
+    .pub:hover { box-shadow: 0 18px 40px -14px rgba(52,45,30,.30); border-color: var(--line); transform: translateY(-5px); }
     .pub .pt { font-family: 'Instrument Serif',serif; font-style: normal; font-weight: 400; color: var(--ink); font-size: 20px; line-height: 1.28; letter-spacing: 0; }
     .pub .pm { margin-top: 9px; font-size: 12.5px; color: var(--ink); display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
     .pub .pm span { color: var(--ink); }
     .pub .pm .v { font-family: 'Archivo',sans-serif; font-weight: 400; font-size: 13px; color: var(--ink); }
 
     /* ---------- outro ---------- */
-    .outro { text-align: center; padding: 76px 26px 48px; }
+    .outro { text-align: center; padding: 76px 26px 48px; border-top: 1px solid var(--line); }
     .outro p { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: clamp(1.55rem, 3.7vw, 2rem); line-height: 1.24; color: var(--ink); max-width: 720px; margin: 0 auto 14px; letter-spacing: -0.012em; }
     .outro p .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; }
     .outro a { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 1.12em; letter-spacing: -0.01em; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 9px; text-decoration-color: var(--ink); transition: text-decoration-color .25s; }
     .outro a:hover { text-decoration-color: transparent; }
-    .made { font-family: 'Archivo',sans-serif !important; font-weight: 500; font-size: 13px !important; line-height: 1.6; letter-spacing: .01em; color: var(--muted); max-width: 500px; margin: 72px auto 0 !important; }
+    .made { font-family: 'Archivo',sans-serif !important; font-weight: 600; font-size: 13px !important; line-height: 1.6; letter-spacing: .01em; color: var(--muted); max-width: 500px; margin: 72px auto 0 !important; }
     .cph { font-size: 12px; letter-spacing: .01em; color: var(--faint); margin-top: 42px; }
 
     /* ---------- project detail ---------- */
@@ -233,7 +233,7 @@
       .outro p { font-size: clamp(1.3rem, 5.4vw, 1.62rem); }
     }
 
-    @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;} html{scroll-behavior:auto;} .item[open] .body{animation:none;} .trail{display:none;} .morph .mcard{transform:none;} .mc-photo{opacity:1;} .cap{opacity:1;transform:none;} }
+    @media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none;} html{scroll-behavior:auto;} .item[open] .body{animation:none;} .trail{display:none;} .morph .mcard{transform:none;opacity:1;} .mc-photo{opacity:1;} .cap{opacity:1;transform:none;} }
   </style>
 </head>
 <body>
@@ -469,7 +469,7 @@
        s = Context · t = Objective · a = Approach · rr = Outcome (the STAR fields
        shown when the entry is expanded).                                        */
     var EXP = [
-      { r:'Research Assistant', o:'AO Research Institute, Davos', y:'2025 -', loc:'Davos, Graubünden, Switzerland · On-site',
+      { r:'Research Assistant', o:'AO Research Institute, Davos', y:'2025 - Present', loc:'Davos, Graubünden, Switzerland · On-site',
         s:"Translational research in biofabrication and tissue engineering, associating fundamental biological investigation with clinically oriented product development.",
         t:"Ensure data integrity for future Clinical Trial Applications (CTA) within a quality-controlled (ISO and GLP) environment.",
         a:"Conducting studies in biofabrication and tissue engineering, in close collaboration with surgeons and clinical experts, to develop strategies aimed at future therapeutic applications.",
