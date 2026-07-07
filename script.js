@@ -261,25 +261,28 @@
     morph.appendChild(el);
   });
 
-  /* Arrange the cards as a pile/fan before scroll and a lifted row after scroll.
-     All the offsets are derived from how many cards there are, so adding or
-     removing a project just works — no hard-coded per-card rules. */
+  /* Before scroll: pile ALL cards into a disordered deck near the top-centre of the
+     work area (so they poke up from below the hero). After scroll: they settle into
+     their natural positions — a row that WRAPS to a new line past ~3–4 cards.
+     Everything is derived from the measured layout, so it works for any count. */
   function computeDeck(){
     var cards=[].slice.call(morph.querySelectorAll('.mcard'));
     if(!cards.length) return;
     var n=cards.length, mid=(n-1)/2;
-    /* measure each card's natural row position with transforms momentarily off */
+    /* measure each card's natural (wrapped) position with transforms momentarily off */
     cards.forEach(function(el){ el.style.transition='none'; el.style.transform='none'; });
     var mr=morph.getBoundingClientRect(), cx=mr.left+mr.width/2;
+    var rects=cards.map(function(el){ return el.getBoundingClientRect(); });
+    var topY=Math.min.apply(null, rects.map(function(r){ return r.top+r.height/2; }));  /* first-row centre line */
     cards.forEach(function(el,i){
-      var off=i-mid, r=el.getBoundingClientRect();
+      var off=i-mid, r=rects[i], ccx=r.left+r.width/2, ccy=r.top+r.height/2;
       var out=off===0?0:(off>0?1:-1)*30;                     /* outer cards drift outward so none stays hidden */
-      var pileX=(cx-(r.left+r.width/2))*0.6;                 /* overlap, but each card still peeks out */
-      el.style.setProperty('--deckX', (pileX + out).toFixed(1)+'px');
-      el.style.setProperty('--deckY', (10+Math.abs(off)*15 + (i%2?0:9)).toFixed(1)+'px');
-      el.style.setProperty('--deckR', (off*11 + (i%2?1:-1)*3).toFixed(2)+'deg');
-      el.style.setProperty('--liftY', (-(mid-Math.abs(off))*38).toFixed(1)+'px');
-      el.style.zIndex=String(Math.round(20-Math.abs(off)*3));  /* centre card on top (kept well below the modal, z-90) */
+      var pileX=(cx-ccx)*0.6 + out;                          /* gather toward centre, keep some overlap */
+      var pileY=(topY-ccy)*0.92 + 10 + Math.abs(off)*9;      /* lift lower rows up into the top pile */
+      el.style.setProperty('--deckX', pileX.toFixed(1)+'px');
+      el.style.setProperty('--deckY', pileY.toFixed(1)+'px');
+      el.style.setProperty('--deckR', (off*10 + (i%2?3:-3)).toFixed(2)+'deg');
+      el.style.zIndex=String(Math.round(20-Math.abs(off)*2));  /* centre card on top (kept well below the modal, z-90) */
     });
     cards.forEach(function(el){ el.style.transform=''; });    /* back to the CSS deck/settle transform */
     requestAnimationFrame(function(){ cards.forEach(function(el){ el.style.transition=''; }); });
